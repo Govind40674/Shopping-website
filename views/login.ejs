@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="/login.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <form  method="GET"action="/login/check" class="container">
+    <!-- <h1>Log in / Sign Up</h1> -->
+    <p><i class="fa-solid fa-user"></i></p>
+    <input type="text" name="name" class="name" placeholder="enter username" spellcheck="false">
+  
+    <!-- <input type="text" class="email" name="email" placeholder="enter email" spellcheck="false"> -->
+    <input type="password" class="password" name="password" placeholder="enter password" spellcheck="false">
+    <button class="login">Log in</button>
+      <br>
+      <a href="/auth/google">Log in with Google</a>
+      <br>
+    <a href="/signup">Sign up</a>
+      <% if (news) { %>
+    <p style="color: red;"><%= news %></p>
+  <% } %>
+
+  </form>
+  
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shortage</title>
+  <link rel="stylesheet" href="/shortage.css">
+</head>
+<body>
+  <div class="container">
+    <a href="/">Home</a>
+   <a href="/shortageadd">Add Shortage</a>
+  </div>
+  
+  <h1>Shortage Item</h1>
+
+  <table>
+    <thead>
+      <tr class="item1">
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% data.forEach(item => { %>
+        <tr class="item">
+          <td><%= item.item %></td>
+          <td><%= item.quantity %></td>
+         <td>
+          <form action="http://localhost:8000/deleteshortage/<%= item._id %>" method="GET">
+          <button>Delete</button>
+         </form>
+         </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  
+</body>
+</html>

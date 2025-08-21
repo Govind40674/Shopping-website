@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="stylesheet" href="/home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <%-include('includes/header.ejs');%>
+  <main>
+   <form method="GET" action="http://localhost:8000/search" class="searchengine">
+     <input type="text"name="search" class="search">
+     <button type="submit">Search</button>
+   </form>
+   <%if(error){%>
+     <p class="error"><%=error%></p>
+  <% }%>
+<% if(data){%>
+       <%for(let datas of data){%> 
+            <div class="container"> 
+              <img  class="image2"src="<%=datas.image%>" alt="Item" width="200">
+               <h2>Item:<%=datas.item%></h2>
+               
+                
+                 <p>Price:<i class="fa-solid fa-indian-rupee-sign"></i><%=datas.price%></p>
+                 <p>Quantity: <%=datas.quantity%></p>
+                 
+                 
+                <a href="/buy/<%=datas._id%>"><button>Buy</button></a>
+                
+                 </div> 
+                 <%}%> 
+
+<%}%>
+
+   
+  </main>
+  
+
+
+
+  
+</body>
+<%-include('includes/footer.ejs');%>
+</html>

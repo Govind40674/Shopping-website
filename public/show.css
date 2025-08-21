@@ -1,0 +1,67 @@
+body{
+  margin:0px;
+  padding:0px;
+  background-color:#F0F8FF;
+}
+.a{
+  display:flex;
+  
+  justify-content:space-between;
+  margin-top:20px;
+  background-color:rgb(255, 244, 240);
+ 
+
+}
+.a a{
+  background-color:antiquewhite;
+  height:50px;
+  border-radius:15px;
+  border:1px solid white;
+  cursor:pointer;
+  text-decoration:none;
+  width:150px;
+  text-align:center;
+  padding-top:15px;
+ 
+
+}
+
+.filter{
+  display:flex;
+
+  /* margin-top:20px; */
+  margin-bottom:20px;
+  height:30px;
+ 
+
+  border-radius:15px;
+  border:1px solid white;
+  padding:10px;
+ 
+}
+
+.delete button{
+  background-color:antiquewhite;
+  height:30px;
+  border-radius:5px;
+  border:1px solid white;
+  cursor:pointer;
+  
+}
+#usertable{
+  margin-top:20px;
+  background-color:antiquewhite;
+  border-radius:15px;
+  border:1px solid white;
+
+}
+.tabulator-row:nth-child(even) {
+    background-color: #F0F8FF;
+}
+.tabulator-row:nth-child(odd) {
+    background-color: #F0F8FF;
+}
+.tabulator-row:hover {
+    background-color: inherit !important; /* keeps your set color */
+}
+

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Show Data</title>
+  <link href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/show.css">
+
+</head>
+<body>
+  <div class="a">
+    <a href="/">
+      Home
+    </a>
+
+  <a href="/adddata">
+    Add New Data
+  </a>
+  
+
+  </div>
+
+  <div class="filter">
+  <select id="filter-field">
+    <option>Select</option>
+    <option value="item">Item</option>
+    <option value="itemsize">Total Item</option>
+    <option value="mrp">MRP</option>
+    <option value="sp">Selling Price</option>
+    <option value="sdi">Total Sold items</option>
+    <option value="profit">Profit</option>
+    <option value="rem">Remaining</option>
+    
+  </select>
+
+  <select id="filter-type">
+    <option value="=">=</option>
+    <option value="<"><</option>
+    <option value="<="><=</option>
+    <option value=">">></option>
+    <option value=">=">>=</option>
+    <option value="!=">!=</option>
+    <option value="like">like</option>
+  </select>
+
+  <input id="filter-value" type="text" placeholder="value to filter">
+
+ 
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="container">
+    <div id="usertable"></div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+  <script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.3.1/dist/js/tabulator.min.js"></script>
+  <script>
+    //Build Tabulator
+var table = new Tabulator("#usertable", {
+    // height:"311px",
+    // layout:"fitColumns",
+    ajaxURL:"http://localhost:8000/showdata",
+      ajaxResponse:function(url, params, response){
+        
+
+        return response.data; 
+    },
+    pagination:true,
+      paginationSize:10,
+      paginationSizeSelector:[20,20,20],
+      placeholder:"No data set",
+    
+  
+ 
+    columns:[
+        
+      {
+        title: "Item Name", 
+        field: "item", 
+        // width:200,
+        // height:300,
+        formatter: function(cell) {
+           let rowData = cell.getRow().getData();
+            let value = cell.getValue();
+            return `
+                <div>
+                    <div><h2>${value}</h2></div>
+                  
+                    <form method="GET" action="http://localhost:8000/update1/${rowData._id}">
+
+                    <input type="text"spellcheck="false" name="value" placeholder="Enter new value" style="width:97%; margin-top:25px;">
+                    <br>
+                 <button style="width:97%; margin-top:4px;">Submit</button>
+                    </form>
+
+                </div>
+            `;
+        }
+    },
+        // {title:"Item Size", field:"itemsize",width:200},
+            {
+        title: "Item Size", 
+        field: "itemsize", 
+        formatter: function(cell) {
+           let rowData = cell.getRow().getData();
+            let value = cell.getValue();
+            return `
+                <div>
+                    <div><h2>${value}</h2></div>
+                  
+                    <form method="GET" action="http://localhost:8000/update2/${rowData._id}">
+
+                    <input type="text"spellcheck="false" name="value" placeholder="Enter new value" style="width:97%; margin-top:25px;">
+                    <br>
+                 <button style="width:97%; margin-top:4px;">Submit</button>
+                    </form>
+
+                </div>
+            `;
+        }
+    },
+        // {title:"MRP", field:"mrp",width:200},
+             {
+        title: "MRP", 
+        field: "mrp", 
+        formatter: function(cell) {
+           let rowData = cell.getRow().getData();
+            let value = cell.getValue();
+            return `
+                <div>
+                    <div><h2>${value}</h2></div>
+                  
+                    <form method="GET" action="http://localhost:8000/update3/${rowData._id}">
+
+                    <input type="text"spellcheck="false" name="value" placeholder="Enter new value" style="width:97%; margin-top:25px;">
+                    <br>
+                 <button style="width:97%; margin-top:4px;">Submit</button>
+                    </form>
+
+                </div>
+            `;
+        }
+    },
+        // {title:"Selling Price", field:"sp",width:200},
+             {
+        title: "Selling Price", 
+        field: "sp", 
+        formatter: function(cell) {
+           let rowData = cell.getRow().getData();
+            let value = cell.getValue();
+            return `
+                <div>
+                    <div><h2>${value}</h2></div>
+                  
+                    <form method="GET" action="http://localhost:8000/update4/${rowData._id}">
+
+                    <input type="text"spellcheck="false" name="value" placeholder="Enter new value" style="width:97%; margin-top:25px;">
+                    <br>
+                 <button style="width:97%; margin-top:4px;">Submit</button>
+                    </form>
+
+                </div>
+            `;
+        }
+    },
+        // {title:"Total Sold Item", field:"sdi",width:200},
+            {
+        title: "Total Sold Item", 
+        field: "sdi", 
+        formatter: function(cell) {
+           let rowData = cell.getRow().getData();
+            let value = cell.getValue();
+            return `
+                <div>
+                    <div><h2>${value}</h2></div>
+                  
+                    <form method="GET" action="http://localhost:8000/update4/${rowData._id}">
+
+                    <input type="text"spellcheck="false" name="value" placeholder="Enter new value" style="width:97%; margin-top:25px;">
+                    <br>
+                 <button style="width:97%; margin-top:4px;">Submit</button>
+                    </form>
+
+                </div>
+            `;
+        }
+    },
+    // {title:"Profit", field:"profit",width:200},
+    { 
+    title: "Profit", 
+    field: "profit", 
+    width: 200,
+    formatter: function(cell) {
+        return `<h2>${cell.getValue()}</h2>`;
+    }
+},
+    // {title:"Remaining", field:"rem",width:200},
+    {
+    title: "Remaining",
+    field: "rem",
+    width: 200,
+    formatter: (cell) => `<h2>${cell.getValue()}</h2>`
+},
+
+           
+        {
+          title:"Action",width:200,formatter:function(cell){
+               let rowData = cell.getRow().getData();
+            return `
+            <form method="GET" class="delete"action="/delete/${rowData._id}">
+        
+            <button>Delete</button>
+            </form>
+
+              `
+          }
+        }
+       
+    ],
+     
+});
+ var fieldEl = document.getElementById("filter-field");
+  var typeEl = document.getElementById("filter-type");
+  var valueEl = document.getElementById("filter-value");
+
+  function updateFilter() {
+    var filterVal = fieldEl.value;
+    var typeVal = typeEl.value;
+    var filter = valueEl.value;
+
+    if (filterVal) {
+      table.setFilter(filterVal, typeVal, filter);
+    }
+  }
+
+  valueEl.addEventListener("keyup", updateFilter);
+  // fieldEl.addEventListener("change", updateFilter);
+  // typeEl.addEventListener("change", updateFilter);
+  </script>
+</body>
+</html>

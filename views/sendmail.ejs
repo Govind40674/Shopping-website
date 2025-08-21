@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Send Mail</title>
+  <link rel="stylesheet" href="/sendmail.css">
+</head>
+<body>
+  <form method="POST"action="http://localhost:8000/sendmail">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <label for="to">From:</label>
+    <input type="email" name="from" id="to" placeholder="Enter your email">
+    <label for="subject">Subject:</label>
+    <input type="text" name="subject" id="subject" placeholder="Enter subject">
+    <label for="message">Message:</label>
+    <textarea name="message" id="message" placeholder="Enter message"></textarea>
+    <button type="submit">Send</button>
+    <% if (error) { %>
+    <p style="color: red;"><%=error.message%></p>
+    <% } %>
+  </form>
+
+  
+</body>
+</html>

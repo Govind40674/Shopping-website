@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="/signup.css">
+</head>
+<body>
+  <form  method="POST"action="/signup/check" class="container">
+    <h1> Sign Up</h1>
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <input type="text" name="name" class="name" placeholder="enter username" spellcheck="false">
+  
+    <!-- <input type="text" class="email" name="email" placeholder="enter email" spellcheck="false"> -->
+    <input type="password" class="password" name="password" placeholder="enter password" spellcheck="false">
+    <button class="sign">Sign Up</button>
+    <a href="/auth/google">Sign up with Google</a>
+    <% if (error) { %>
+    <p style="color: red;"><%= error %></p>
+  <% } %>
+ 
+  
+   
+
+  </form>
+  
+</body>
+</html>

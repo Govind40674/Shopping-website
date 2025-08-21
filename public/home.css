@@ -1,0 +1,97 @@
+ body{
+    background-color: #f2f2f2;
+    font-family: Arial, sans-serif;
+    margin:0px;
+    padding:0px;
+    
+ }
+ 
+.container{
+  
+  display:inline-block;
+  width:20%;
+  
+  border:2px solid white;
+  border-radius:15px;
+  margin-bottom:30px;
+  margin-top:30px;
+  margin-left:60px;
+ 
+  background-color:white;
+  text-align:center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+
+  
+}
+ .image2{
+    width:100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    
+  }
+  main .searchengine{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  main .searchengine input{
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+  }
+  
+  main .searchengine button{
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  main .searchengine button:hover{
+    background-color: #0056b3;
+  }
+  
+  main .searchengine button:active{
+    background-color: #003366;
+  }
+  
+  main .searchengine input:focus{
+    outline: none;
+  }
+  
+  main .searchengine button:disabled{
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  main .error{
+    color: red;
+    text-align: center;
+    font-size:50px;
+  }
+  main{
+    overflow-y:auto;
+    
+  }
+  .container a{
+    text-decoration:none;
+    
+    cursor:pointer;
+    display:inline-block;
+    width:300px;
+  }
+  .container a button{
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }

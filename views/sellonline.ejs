@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sell Online</title>
+  <link rel="stylesheet" href="/sellonline.css">
+</head>
+<body>
+  <header>
+ 
+    <a href="/">Home</a>
+       <a href="/previoussellonline">Previous</a>
+  </header>
+  <form action="http://localhost:8000/sellonline"  enctype="multipart/form-data" method="POST" class="container">
+    <h1>Sell Online</h1>
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <input type="text"  spellcheck="false"name="item" placeholder="enter item name">
+    <input type="text"  spellcheck="false"name="price" placeholder="enter price">
+    <input type="text"  spellcheck="false"name="quantity" placeholder="enter quantity">
+    <input type="text"  spellcheck="false"name="description" placeholder="enter description">
+    <input type="file" name="image" >
+    <input type="text"  spellcheck="false" placeholder="enter phone no" name="phone">
+   
+    
+    <button>Submit</button>
+      <% if (error) { %>
+    <p style="color: red;"><%= error %></p>
+  <% } %>
+  </form>
+
+  
+</body>
+</html>
