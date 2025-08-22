@@ -233,14 +233,42 @@ app.post("/adddata",async(req,res)=>{
   
 
 });
-app.get("/show",async(req,res)=>{
-  let data=await Data.find({username:req.user.username});
-  res.render("show",{data});
+// app.get("/show",async(req,res)=>{
+//   let data=await Data.find({username:req.user.username});
+//   res.render("show",{data});
+// });
+// app.get("/showdata", async (req, res) => {
+//     let data = await Data.find({ username: req.user.username });
+//     res.json({ data }); // Tabulator-friendly JSON
+// });
+app.get("/show", async (req, res) => {
+    if (!req.user) {
+        return res.redirect("/login"); // or send error message
+    }
+
+    try {
+        let data = await Data.find({ username: req.user.username });
+        res.render("show", { data });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error fetching data");
+    }
 });
+
 app.get("/showdata", async (req, res) => {
-    let data = await Data.find({ username: req.user.username });
-    res.json({ data }); // Tabulator-friendly JSON
+    if (!req.user) {
+        return res.status(401).json({ error: "User not logged in" });
+    }
+
+    try {
+        let data = await Data.find({ username: req.user.username });
+        res.json({ data });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Error fetching data" });
+    }
 });
+
 app.get("/update1/:id",async(req,res)=>{
   let {id}=req.params;
   let {value}=req.query;
