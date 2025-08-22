@@ -10,7 +10,7 @@ const auth = (req, res, next) => {
 
     // If no token, redirect to login
     if (!token) {
-        return res.redirect("/login?news=Invalid or expired token. Please login again.");
+        return res.redirect("/login");
     }
 
     try {

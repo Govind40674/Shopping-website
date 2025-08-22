@@ -109,7 +109,7 @@ var table = new Tabulator("#usertable", {
                 <div>
                     <div><h2>${value}</h2></div>
                   
-                    <form method="GET" action="http://localhost:8000/update1/${rowData._id}">
+                    <form method="GET" action="/update1/${rowData._id}">
 
                     <input type="text"spellcheck="false" name="value" placeholder="Enter new value" style="width:97%; margin-top:25px;">
                     <br>
@@ -131,7 +131,7 @@ var table = new Tabulator("#usertable", {
                 <div>
                     <div><h2>${value}</h2></div>
                   
-                    <form method="GET" action="http://localhost:8000/update2/${rowData._id}">
+                    <form method="GET" action="/update2/${rowData._id}">
 
                     <input type="text"spellcheck="false" name="value" placeholder="Enter new value" style="width:97%; margin-top:25px;">
                     <br>
@@ -153,7 +153,7 @@ var table = new Tabulator("#usertable", {
                 <div>
                     <div><h2>${value}</h2></div>
                   
-                    <form method="GET" action="http://localhost:8000/update3/${rowData._id}">
+                    <form method="GET" action="/update3/${rowData._id}">
 
                     <input type="text"spellcheck="false" name="value" placeholder="Enter new value" style="width:97%; margin-top:25px;">
                     <br>
@@ -175,7 +175,7 @@ var table = new Tabulator("#usertable", {
                 <div>
                     <div><h2>${value}</h2></div>
                   
-                    <form method="GET" action="http://localhost:8000/update4/${rowData._id}">
+                    <form method="GET" action="/update4/${rowData._id}">
 
                     <input type="text"spellcheck="false" name="value" placeholder="Enter new value" style="width:97%; margin-top:25px;">
                     <br>
@@ -197,7 +197,7 @@ var table = new Tabulator("#usertable", {
                 <div>
                     <div><h2>${value}</h2></div>
                   
-                    <form method="GET" action="http://localhost:8000/update4/${rowData._id}">
+                    <form method="GET" action="/update5/${rowData._id}">
 
                     <input type="text"spellcheck="false" name="value" placeholder="Enter new value" style="width:97%; margin-top:25px;">
                     <br>
@@ -227,7 +227,7 @@ var table = new Tabulator("#usertable", {
 
            
         {
-          title:"Action",width:200,formatter:function(cell){
+          title:"Action",width:300,formatter:function(cell){
                let rowData = cell.getRow().getData();
             return `
             <form method="GET" class="delete"action="/delete/${rowData._id}">

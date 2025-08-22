@@ -1,7 +1,7 @@
-form{
+/* form{
   display:flex;
   flex-direction:column;
-  /* justify-content:space-around; */
+  
   align-items:center;
   margin-top:100px;
   
@@ -20,7 +20,59 @@ input{
   border:1px solid rgb(195, 181, 181);
   border-radius:10px;
   background-color:white;
-  /* border-radius:5px; */
+
+}
+input:focus{
+  outline: none;             
+
+  border:1px solid rgb(195, 181, 181);
+}
+button{
+  margin-top:30px;
+  height:50px;
+  width:300px;
+  border:1px solid rgb(195, 181, 181);
+  border-radius:10px;
+  background-color:white;
+
+}
+h1{
+  text-align:center;
+  background-color:rgb(238, 240, 240);
+  height:70px;
+}
+body{
+  margin:0px;
+  padding:0px;
+  background-color:#F0F8FF;
+} */
+ body{
+  background-color:#F0F8FF;
+  margin:0px;
+  padding:0px;
+ }
+form{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  margin-top:100px;
+  margin-left:550px;
+  background-color: #e3e1df;
+  width:600px;
+  height:500px;
+  border:2px solid white;
+  border-radius:15px;
+}
+input{
+  
+  margin-top:30px;
+  height:50px;
+  width:300px;
+  border:1px solid rgb(195, 181, 181);
+  border-radius:10px;
+  background-color:white;
+  padding:5px;
+  font-size:18px;
 }
 input:focus{
   outline: none;             /* Removes the default black outline */
@@ -34,15 +86,12 @@ button{
   border:1px solid rgb(195, 181, 181);
   border-radius:10px;
   background-color:white;
-  /* border-radius:5px; */
+  padding:5px;
+  font-size:18px;
 }
 h1{
   text-align:center;
-  background-color:rgb(238, 240, 240);
+  
   height:70px;
 }
-body{
-  margin:0px;
-  padding:0px;
-  background-color:#F0F8FF;
-}
+

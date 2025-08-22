@@ -1,14 +1,14 @@
-body{
+/* body{
   justify-content:center;
 }
 .container{
   display:flex;
   flex-direction:column;
-  /* justify-content:center; */
+
   align-items:center;
   margin-top:200px;
   height:500px;
-  /* display:inline-block; */
+
   background-color:rgb(243, 235, 235);
   width:500px;
   margin-left:600px;
@@ -23,13 +23,13 @@ width:300px;
 border:1px solid white;
   border-radius:10px;
     background-color:white;
-/* border-radius:5px; */
+
 }
 input:focus {
-  outline: none;             /* Removes the default black outline */
- /* Optional: adds a custom border */
+  outline: none;         
+
   box-shadow: 0 0 5px #3498db;
-   /* Optional: glowing effect */
+
 }
 button{
   margin-top:20px;
@@ -39,8 +39,45 @@ button{
   border:1px solid white;
   border-radius:10px;
     background-color:white;
-  /* border-radius:5px; */
+
 }
 h3{
   display:inline-block;
+} */
+ body{
+  background-color: #e3e1df;
+ }
+.container{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  margin-top:100px;
+  height:500px;
+  background-color: #e3e1df;
+  width:600px;
+  margin-left:30vw;
+  border:2px solid white;
+  border-radius:15px;
+}
+input{
+  margin-top:10px;
+  height:50px;
+  width:300px;
+  border:1px solid rgb(195, 181, 181);
+  border-radius:10px;
+  background-color:white;
+  padding:5px;
+  font-size:18px;
+}
+input:focus{
+  outline: none;
+  box-shadow: 0 0 5px #3498db;
+}
+button{
+  margin-top:20px;
+  width:100px;
+  height:30px;
+  border:1px solid white;
+  border-radius:10px;
+  background-color:white;
 }
