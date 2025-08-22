@@ -47,7 +47,9 @@ app.use(session({
   }),
   cookie: {
     maxAge: 1000 * 60 * 60 * 24, // 1 day
-    secure: false // change to true if you add HTTPS
+       httpOnly: true,
+   
+    secure: true,
   }
 }));
 
@@ -145,12 +147,14 @@ app.get( '/auth/google/callback',
 app.get("/google/login",async(req,res)=>{
   let user=req.user;
   if(user){
-    const token=jwt.sign({userid:user._id,username:req.user.displayName}, process.env.SECRET_KEY,{expiresIn:"20d"});
+    const token=jwt.sign({userid:user._id,username:req.user.displayName}, process.env.SECRET_KEY,{expiresIn:"1d"});
          res.cookie("token", token, {
         httpOnly: true,
         secure: false, // true in production
-        maxAge: 3600000*24*20,
+        maxAge: 3600000*24,
       });
+    
+req.session.username = user.displayName;
       return res.redirect("/");
   }
  
@@ -178,7 +182,7 @@ app.post("/login/check",async(req,res)=>{
       const token=jwt.sign({userid:find._id,username:find.username}, process.env.SECRET_KEY,{expiresIn:"20d"});
          res.cookie("token", token, {
         httpOnly: true,
-        secure: false, // true in production
+        secure: true, // true in production
         maxAge: 3600000*24*20,
       });
       req.session.userId = find._id;
