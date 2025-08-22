@@ -37,7 +37,7 @@ const auth = (req, res, next) => {
 
     // If no token, redirect to login
     if (!token) {
-        return res.redirect("/login");
+        return res.redirect("/login?news=Invalid or expired token. Please login again.");
     }
 
     try {
@@ -55,7 +55,7 @@ const auth = (req, res, next) => {
         console.error("Invalid or expired token:", err.message);
 
         // Token invalid or expired, redirect to login
-        return res.redirect("/login");
+        return res.redirect("/login?news=Invalid or expired token. Please login again.");
     }
 };
 
