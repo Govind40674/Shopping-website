@@ -127,7 +127,7 @@ app.post("/signup/check",async(req,res)=>{
 
   await user.save();
   
-  res.redirect("/login")
+  res.redirect("/login?news=account created successfully");
 
 
   
@@ -191,12 +191,12 @@ req.session.username = find.username;
 
       return res.redirect("/");
     }else{
-      return res.redirect("/login");
+      return res.redirect("/login?news=wrong password");
     }
   };
 
   }catch(error){
-    return res.redirect("/login");
+    return res.redirect("/login?news=something wrong ");
   }
 
 
