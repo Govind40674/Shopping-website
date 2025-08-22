@@ -36,6 +36,7 @@ app.use("/uploads", express.static("uploads"));
 //   resave:false,
 //   saveUninitialized:false
 // }));
+app.use(cookieParser());
 app.use(session({
   secret: process.env.SECRET_KEY,
   resave: false,
@@ -53,7 +54,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(cookieParser());
+
 
 const csrfProtection = csrf({ cookie: true });
 
