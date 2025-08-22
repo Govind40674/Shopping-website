@@ -36,19 +36,19 @@ app.use("/uploads", express.static("uploads"));
 //   resave:false,
 //   saveUninitialized:false
 // }));
-app.use(session({
-  secret: process.env.SECRET_KEY,
-  resave: false,
-  saveUninitialized: false,
-  store: MongoStore.create({
-    mongoUrl: process.env.MONGO_URL, // Same as you use for mongoose.connect
-    collectionName: "sessions"
-  }),
-  cookie: {
-    maxAge: 1000 * 60 * 60 * 24, // 1 day
-    secure: false // change to true if you add HTTPS
-  }
-}));
+// app.use(session({
+//   secret: process.env.SECRET_KEY,
+//   resave: false,
+//   saveUninitialized: false,
+//   store: MongoStore.create({
+//     mongoUrl: process.env.MONGO_URL, // Same as you use for mongoose.connect
+//     collectionName: "sessions"
+//   }),
+//   cookie: {
+//     maxAge: 1000 * 60 * 60 * 24, // 1 day
+//     secure: false // change to true if you add HTTPS
+//   }
+// }));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -180,6 +180,8 @@ app.post("/login/check",async(req,res)=>{
         secure: false, // true in production
         maxAge: 3600000*24*20,
       });
+//       req.session.userId = user._id;
+// req.session.username = user.username;
 
       return res.redirect("/");
     }else{

@@ -37,7 +37,7 @@ const auth = (req, res, next) => {
 
     // If no token, redirect to login
     if (!token) {
-        return res.redirect("/login?news=Please login to access this page.");
+        return res.redirect("/login");
     }
 
     try {
