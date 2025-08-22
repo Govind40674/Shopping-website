@@ -123,7 +123,7 @@ app.post("/signup/check",async(req,res)=>{
 
   await user.save();
   
-  res.redirect("/?news= You can login")
+  res.redirect("/login")
 
 
   
@@ -167,9 +167,10 @@ app.get("/login",(req,res)=>{
 });
 
 
-app.get("/login/check",async(req,res)=>{
-   let{name,password}=req.query;
+app.post("/login/check",async(req,res)=>{
+   let{name,password}=req.body;
   let find= await User.findOne({username:name});
+  try{
   if(find){
     let c= await bcrypt.compare(password,find.password);
     if(c){
@@ -182,11 +183,12 @@ app.get("/login/check",async(req,res)=>{
 
       return res.redirect("/");
     }else{
-      return res.redirect("/?news=invalid password");
+      return res.redirect("/login");
     }
-  }else{
-    res.redirect("/?news=invalid details");
+  };
 
+  }catch(error){
+    return res.redirect("/login");
   }
 
 
