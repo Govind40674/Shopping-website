@@ -18,6 +18,7 @@ const Online=require("./model/online.js");
 const passport=require("passport");
 require("./auth2/google.js");
 const nodemailer=require("nodemailer");
+const MongoStore = require("connect-mongo");
 
 
 
@@ -30,11 +31,25 @@ app.use(express.urlencoded({extended:true}));
 
 
 app.use("/uploads", express.static("uploads"));
+// app.use(session({
+//   secret:"secret",
+//   resave:false,
+//   saveUninitialized:false
+// }));
 app.use(session({
-  secret:"secret",
-  resave:false,
-  saveUninitialized:false
+  secret: process.env.SESSION_SECRET || "secret",
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGO_URL, // Same as you use for mongoose.connect
+    collectionName: "sessions"
+  }),
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24, // 1 day
+    secure: false // change to true if you add HTTPS
+  }
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -71,11 +86,11 @@ const transporter=nodemailer.createTransport({
   }
 });
 async function main(){
-  // await mongoose.connect(process.env.MONGO_URL);
-  await mongoose.connect(process.env.MONGO_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+  await mongoose.connect(process.env.MONGO_URL);
+//   await mongoose.connect(process.env.MONGO_URL, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
 
 };
 main()
