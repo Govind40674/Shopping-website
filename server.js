@@ -32,11 +32,7 @@ app.use(express.urlencoded({extended:true}));
 
 app.use("/uploads", express.static("uploads"));
 app.set('trust proxy', 1);
-// app.use(session({
-//   secret:"secret",
-//   resave:false,
-//   saveUninitialized:false
-// }));
+
 app.use(cookieParser());
 app.use(session({
   secret: process.env.SECRET_KEY,
@@ -50,7 +46,8 @@ app.use(session({
     maxAge: 1000 * 60 * 60 * 24, // 1 day
        httpOnly: true,
    
-    secure:process.env.SECRET_KEY==="Govind123",
+    // secure:process.env.SECRET_KEY==="Govind123",
+    secure:false,
   }
 }));
 
@@ -180,11 +177,11 @@ app.post("/login/check",async(req,res)=>{
   if(find){
     let c= await bcrypt.compare(password,find.password);
     if(c){
-      const token=jwt.sign({userid:find._id,username:find.username}, process.env.SECRET_KEY,{expiresIn:"20d"});
+      const token=jwt.sign({userid:find._id,username:find.username}, process.env.SECRET_KEY,{expiresIn:"1d"});
          res.cookie("token", token, {
         httpOnly: true,
        secure:process.env.SECRET_KEY==="Govind123",
-        maxAge: 3600000*24*20,
+        maxAge: 3600000*24,
       });
       req.session.userId = find._id;
 req.session.username = find.username;
@@ -205,7 +202,20 @@ req.session.username = find.username;
 app.get("/forgetpassword",csrfProtection,(req,res)=>{
   const error=req.query.error;
   res.render("forgetpassword",{error,csrfToken:req.csrfToken()});
-})
+});
+app.post("/forgetpassword",async(req,res)=>{
+  let{name,password}=req.body;
+  let user=await User.findOne({username:name});
+  if(!user){
+     return res.redirect("/forgetpassword?error=invalid username")
+  };
+  let hashedpassword=await bcrypt.hash(password,10);
+  await User.updateOne({username:name},{password:hashedpassword});
+  return res.redirect("/login?news=password updated successfully");
+
+
+
+});
 function googleauth(req,res,next){
   if(req.user){
     next();
@@ -258,14 +268,7 @@ app.post("/adddata",async(req,res)=>{
   
 
 });
-// app.get("/show",async(req,res)=>{
-//   let data=await Data.find({username:req.user.username});
-//   res.render("show",{data});
-// });
-// app.get("/showdata", async (req, res) => {
-//     let data = await Data.find({ username: req.user.username });
-//     res.json({ data }); // Tabulator-friendly JSON
-// });
+
 app.get("/show", async (req, res) => {
     if (!req.user.username) {
         return res.redirect("/login?news=you are not logged in"); // or send error message
@@ -459,14 +462,32 @@ try{
 });
 
 
+app.get('/logout', (req, res, next) => {
+    req.logout(function(err) {
+        if (err) { 
+          return res.redirect("/login?news= invalid logout from google "); 
+        }
 
-app.get('/logout', (req, res) => {
+        // Destroy session stored in MongoDB
+        req.session.destroy((err) => {
+            if (err) console.log(err);
 
-  req.logout(()=>{
-      res.clearCookie('token'); 
-  res.redirect('/login?news=You are logged out');
-  })
+            // Clear JWT cookie
+            res.clearCookie('token');
+
+            // Clear session cookie (connect.sid)
+            res.clearCookie('connect.sid');
+
+            // Redirect to login
+            res.redirect('/login?news=You are logged out');
+        });
+    });
 });
+
+
+
+
+
 
 
 
