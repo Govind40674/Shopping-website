@@ -37,7 +37,7 @@ app.use("/uploads", express.static("uploads"));
 //   saveUninitialized:false
 // }));
 app.use(session({
-  secret: process.env.SESSION_SECRET || "secret",
+  secret: process.env.SECRET_KEY,
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({
