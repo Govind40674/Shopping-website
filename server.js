@@ -49,7 +49,7 @@ app.use(session({
     maxAge: 1000 * 60 * 60 * 24, // 1 day
        httpOnly: true,
    
-    secure: true,
+    secure:process.env.SECRET_KEY==="Govind123",
   }
 }));
 
@@ -150,7 +150,7 @@ app.get("/google/login",async(req,res)=>{
     const token=jwt.sign({userid:user._id,username:req.user.displayName}, process.env.SECRET_KEY,{expiresIn:"1d"});
          res.cookie("token", token, {
         httpOnly: true,
-        secure: false, // true in production
+       secure:process.env.SECRET_KEY==="Govind123",
         maxAge: 3600000*24,
       });
     
@@ -182,7 +182,7 @@ app.post("/login/check",async(req,res)=>{
       const token=jwt.sign({userid:find._id,username:find.username}, process.env.SECRET_KEY,{expiresIn:"20d"});
          res.cookie("token", token, {
         httpOnly: true,
-        secure: true, // true in production
+       secure:process.env.SECRET_KEY==="Govind123",
         maxAge: 3600000*24*20,
       });
       req.session.userId = find._id;
