@@ -262,7 +262,7 @@ app.post("/adddata",async(req,res)=>{
 //     res.json({ data }); // Tabulator-friendly JSON
 // });
 app.get("/show", async (req, res) => {
-    if (!req.user) {
+    if (!req.session.username) {
         return res.redirect("/login"); // or send error message
     }
 
@@ -276,7 +276,7 @@ app.get("/show", async (req, res) => {
 });
 
 app.get("/showdata", async (req, res) => {
-    if (!req.user) {
+    if (!req.session.username) {
         return res.status(401).json({ error: "User not logged in" });
     }
 
