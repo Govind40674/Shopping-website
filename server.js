@@ -267,7 +267,7 @@ app.post("/adddata",async(req,res)=>{
 //     res.json({ data }); // Tabulator-friendly JSON
 // });
 app.get("/show", async (req, res) => {
-    if (!req.session.username) {
+    if (!req.user.username) {
         return res.redirect("/login?news=you are not logged in"); // or send error message
     }
 
