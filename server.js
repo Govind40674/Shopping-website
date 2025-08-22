@@ -181,8 +181,8 @@ app.post("/login/check",async(req,res)=>{
         secure: false, // true in production
         maxAge: 3600000*24*20,
       });
-//       req.session.userId = user._id;
-// req.session.username = user.username;
+      req.session.userId = find._id;
+req.session.username = find.username;
 
       return res.redirect("/");
     }else{
@@ -267,7 +267,7 @@ app.get("/show", async (req, res) => {
     }
 
     try {
-        let data = await Data.find({ username: req.user.username });
+        let data = await Data.find({ username: req.session.username });
         res.render("show", { data });
     } catch (error) {
         console.error(error);
@@ -281,7 +281,7 @@ app.get("/showdata", async (req, res) => {
     }
 
     try {
-        let data = await Data.find({ username: req.user.username });
+        let data = await Data.find({ username: req.session.username });
         res.json({ data });
     } catch (error) {
         console.error(error);
