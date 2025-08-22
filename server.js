@@ -117,7 +117,7 @@ app.post("/signup/check",async(req,res)=>{
   const hashedpassword=await bcrypt.hash(password,10);
  const user = new User({
     username: name,
-    email: email,
+   
     password: hashedpassword,
   });
 
