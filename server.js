@@ -272,7 +272,7 @@ app.get("/show", async (req, res) => {
     }
 
     try {
-        let data = await Data.find({ username: req.session.username });
+        let data = await Data.find({ username: req.user.username });
         res.render("show", { data });
     } catch (error) {
         console.error(error);
@@ -281,12 +281,12 @@ app.get("/show", async (req, res) => {
 });
 
 app.get("/showdata", async (req, res) => {
-    if (!req.session.username) {
+    if (!req.user.username) {
         return res.status(401).json({ error: "User not logged in" });
     }
 
     try {
-        let data = await Data.find({ username: req.session.username });
+        let data = await Data.find({ username: req.user.username });
         res.json({ data });
     } catch (error) {
         console.error(error);
