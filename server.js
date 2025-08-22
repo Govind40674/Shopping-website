@@ -31,6 +31,7 @@ app.use(express.urlencoded({extended:true}));
 
 
 app.use("/uploads", express.static("uploads"));
+app.set('trust proxy', 1);
 // app.use(session({
 //   secret:"secret",
 //   resave:false,
@@ -267,7 +268,7 @@ app.post("/adddata",async(req,res)=>{
 // });
 app.get("/show", async (req, res) => {
     if (!req.session.username) {
-        return res.redirect("/login"); // or send error message
+        return res.redirect("/login?news=you are not logged in"); // or send error message
     }
 
     try {
