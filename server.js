@@ -19,6 +19,7 @@ const passport=require("passport");
 require("./auth2/google.js");
 const nodemailer=require("nodemailer");
 const MongoStore = require("connect-mongo");
+const compression=require("compression");
 
 
 
@@ -32,6 +33,22 @@ app.use(express.urlencoded({extended:true}));
 
 app.use("/uploads", express.static("uploads"));
 app.set('trust proxy', 1);
+app.use(
+  minifyHTML({
+    override: true,
+    htmlMinifier: {
+      removeComments: true,
+      collapseWhitespace: true,
+      collapseBooleanAttributes: true,
+      removeAttributeQuotes: true,
+      removeEmptyAttributes: true,
+    },
+  }),
+);
+app.use(compression({
+  level: 9,
+  threshold:10*1024,
+}));
 
 app.use(cookieParser());
 app.use(session({
