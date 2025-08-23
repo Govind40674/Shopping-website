@@ -78,6 +78,7 @@ const csrfProtection = csrf({ cookie: true });
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.static(path.join(__dirname,"public")));
+app.use("/images", express.static("images"));
 const storage=multer.diskStorage({
   destination:function(req,file,cb){
     cb(null, path.join(__dirname, "uploads"));
@@ -430,10 +431,10 @@ app.get("/deleteonline/:id",async(req,res)=>{
   res.redirect("/previoussellonline");
 });
 app.get("/search",async(req,res)=>{
-  let {search}=req.query;
-  let data=await Online.find({username:{$ne:req.user.username},item:search});
+  let {q}=req.query;
+  let data=await Online.find({username:{$ne:req.user.username},item:q});
   if(data.length==0){
-    data=await Online.find({username:{$ne:req.user.username},description:search});
+    data=await Online.find({username:{$ne:req.user.username},description:q});
   }
   
   
@@ -444,7 +445,7 @@ app.get("/search",async(req,res)=>{
     return res.render("home", {data:null, error: "Item not found" });
 
   }
-  res.render("home",{data});
+  res.render("home",{data,error:null});
 });
 app.get("/buy/:id",async(req,res)=>{
   let {id}=req.params;

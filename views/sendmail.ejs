@@ -8,6 +8,7 @@
 </head>
 <body>
   <form method="POST"action="http://localhost:8000/sendmail">
+    <h1>Send Mail</h1>
     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
     <label for="to">From:</label>
     <input type="email" name="from" id="to" placeholder="Enter your email">

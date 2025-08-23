@@ -8,38 +8,48 @@
   <link rel="stylesheet" href="/header.css">
 </head>
 <body>
-  <div class="icon">
-    <img  class="image"src="https://tse4.mm.bing.net/th/id/OIP.vmmLWaoRgGWOMo-fAmN5ogHaEv?rs=1&pid=ImgDetMain&o=7&rm=3"alt="Random image">
-  </div>
-   <hr>
-  <div class="option">
-     
-    <a class="home" href="/">Home</a>
-    <ul class="first">My Store
-    <div id="myDropdown1" class="block">
-    <a href="/show">Show Data</a>
+
+  <header>
+   
+    <div class="icon">
+      <img src="/images/logo.png" alt="Random image">
+      <h1>SphereMart</h1>
+      <div class="profile">
+      <ul><i class="fa-regular fa-user"></i>
+        <div class="dropdown">
+          <a href="/show">Show Data</a>
     
     <a href="/adddata" >Add Data</a>
     
     <a href="/shortage">Shortage Record</a>
+       <a href="/sold">Sell Online</a>
+   <a href="/mail">Contact</a>
+       <a href="/logout">Logout</a>
+
+        </div>
+
+      </ul>
+    </div>
     </div>
 
-    </ul>
-    <ul class="second">Sell
-      <div id="myDropdown2"class="block">
-          
-        <a href="/sold">Sell Online</a>
-      
-      </div>
-    </ul>
-   
-  
-  </div>
-  <hr>
+ 
+     <input type="text" id="searchBox" class="search">
+     
+  </header>
 
 
  
 
-  
+  <script>
+  document.getElementById("searchBox").addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {  // If Enter is pressed
+    let query = this.value.trim();
+    if (query) {
+      window.location.href = "/search?q=" + encodeURIComponent(query);
+    }
+  }
+});
+
+  </script>
 </body>
 </html>
