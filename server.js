@@ -127,7 +127,11 @@ app.get("/signup",csrfProtection,(req,res)=>{
 app.post("/signup/check",async(req,res)=>{
   let{name,password}=req.body;
   if(!name||await User.findOne({username:name})){
+
     return res.redirect("/signup?error=username already exist or username is required");
+  }
+  if(!password){
+    return res.redirect("/signup?error=password is required");
   }
 
   const hashedpassword=await bcrypt.hash(password,10);
@@ -187,6 +191,9 @@ app.get("/login",(req,res)=>{
 
 app.post("/login/check",async(req,res)=>{
    let{name,password}=req.body;
+   if(!name||!password){
+    return res.redirect("/login?news=username or password is required");
+   };
   let find= await User.findOne({username:name});
   try{
   if(find){
