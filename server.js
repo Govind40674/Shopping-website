@@ -548,7 +548,7 @@ app.get("/search",async(req,res)=>{
     if(data.length==0){
       return res.render("home", {data, error: "Item not found"});
     }
-    return res.render("home",{data:null,error:null});
+    return res.render("home",{data,error:null});
   }
   let data=await Online.find({username:{$ne:req.user.username},item:q,state:Sate,city:City});
   if(data.length==0){
