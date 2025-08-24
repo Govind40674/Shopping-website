@@ -10,14 +10,17 @@
 
 header{
   background: linear-gradient(#0b6fa4, #07527d);
-  /* height:100px; */
+
   font-size:30px;
   
   width:100%;
   font-family: 'Roboto', sans-serif;
 text-align:center;
-  position:sticky;
-  top:0px;
+ position: sticky;
+  top:0px;       /* distance from top */
+  z-index: 101;
+  
+
 }
 
 
@@ -26,14 +29,12 @@ text-align:center;
   position:relative;
   left:470px;
   bottom:140px;
-
-  /* justify-content:flex-end; */
-  /* margin-right:10px; */
-
+ 
+ 
 }
 .profile ul{
 
-  /* width:200px; */
+
   cursor:pointer;
   text-align:center;
   display:flex;
@@ -41,6 +42,9 @@ text-align:center;
   font-size:40px;
   margin-top:10px;
   margin-right:10px;
+   position:sticky;
+  top:0px;
+
   
  
 }
@@ -86,9 +90,9 @@ text-align:center;
 h1{
   
   display:inline-block;
-    font-size: 40px;  /* Change number to increase/decrease size */
+    font-size: 40px;  
   font-weight: bold;
-  font-family: Arial, sans-serif; /* Or a custom font */
+  font-family: Arial, sans-serif;
   color: white;
   position:relative;
   bottom:90px;

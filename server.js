@@ -323,11 +323,18 @@ app.post("/location",async(req,res)=>{
 })
 app.get("/",async(req,res)=>{
   if(!Sate||!City){
-    return res.redirect("/location");
+    let data=await Online.find({username:{$ne:req.user.username}});
+    let error=req.query.error;
+    if(data.length===0){
+      return res.render("home",{data:null,error:"No item found yet"});
+    }
+   return res.render("home",{data,error});
+
+    
   }
    let data=await Online.find({username:{$ne:req.user.username},state:Sate,city:City});
    if(data.length===0){
-    return res.render("home",{data,error:"No item found in this region yet"});
+    return res.render("home",{data:null,error:"No item found in this region yet"});
    }
    let error=req.query.error;
   res.render("home",{data,error});  
@@ -338,7 +345,17 @@ app.get("/",async(req,res)=>{
 
 
 app.get("/home",async(req,res)=>{
- let data=await Online.find({username:{$ne:req.user.username},state:Sate,city:City});
+ if(!Sate||!City){
+    let data=await Online.find({username:{$ne:req.user.username}});
+    let error=req.query.error;
+   return res.render("home",{data,error});
+
+    
+  }
+   let data=await Online.find({username:{$ne:req.user.username},state:Sate,city:City});
+   if(data.length===0){
+    return res.render("home",{data,error:"No item found in this region yet"});
+   }
    let error=req.query.error;
   res.render("home",{data,error}); 
 });
@@ -482,12 +499,12 @@ app.get("/sold",csrfProtection,(req,res)=>{
 
 app.post("/sellonline",upload.single("image"),async(req,res)=>{
 
-  let {item,price,description,quantity,phone}=req.body;
+  let {item,price,description,quantity,phone,state,city,address}=req.body;
    let imagePath = null;
   if (req.file) {
     imagePath="/uploads/" + req.file.filename;
   }
-  if(item&&price&&description&&quantity&&phone){
+  if(item&&price&&description&&quantity&&phone&&imagePath&&state&&city&&address){
 
   
 
@@ -499,12 +516,13 @@ app.post("/sellonline",upload.single("image"),async(req,res)=>{
     username: req.user.username,
     quantity:quantity,
     phone:phone,
-    state:State,
-    city:City,
+    state:state,
+    city:city,
+    address:address,
 
   });
   await data.save();
-  res.redirect("/home");
+  res.redirect("/sold?error=item added successfully");
 }else{
   return res.redirect("/sold?error=something is missing")
 }
@@ -520,7 +538,18 @@ app.get("/deleteonline/:id",async(req,res)=>{
   res.redirect("/previoussellonline");
 });
 app.get("/search",async(req,res)=>{
+
   let {q}=req.query;
+  if(!State||!City){
+    let data=await Online.find({username:{$ne:req.user.username},item:q});
+    if(data.length==0){
+      data=await Online.find({username:{$ne:req.user.username},description:q});
+    }
+    if(data.length==0){
+      return res.render("home", {data, error: "Item not found"});
+    }
+    return res.render("home",{data:null,error:null});
+  }
   let data=await Online.find({username:{$ne:req.user.username},item:q,state:Sate,city:City});
   if(data.length==0){
     data=await Online.find({username:{$ne:req.user.username},description:q,state:Sate,city:City});
@@ -531,7 +560,7 @@ app.get("/search",async(req,res)=>{
   if(data.length==0){
     
     
-    return res.render("home", {data:null, error: "Item not found"});
+    return res.render("home", {data:null, error: "Item not found in this region"});
 
   }
   res.render("home",{data,error:null});

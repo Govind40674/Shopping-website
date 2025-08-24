@@ -27,6 +27,9 @@ const shema5=new mongoose.Schema({
   },
   city:{
     type:String,
+  },
+  address:{
+    type:String,
   }
   
 });
