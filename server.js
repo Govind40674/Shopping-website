@@ -205,7 +205,9 @@ req.session.username = find.username;
     }else{
       return res.redirect("/login?news=wrong password");
     }
-  };
+  }else{
+    return res.redirect("/login?news=invalid username");
+  }
 
   }catch(error){
     return res.redirect("/login?news=something wrong ");
