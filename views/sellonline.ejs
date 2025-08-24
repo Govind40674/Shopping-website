@@ -12,7 +12,7 @@
     <a href="/">Home</a>
        <a href="/previoussellonline">Previous</a>
   </header>
-  <form action="http://localhost:8000/sellonline"  enctype="multipart/form-data" method="POST" class="container">
+  <form action="/sellonline"  enctype="multipart/form-data" method="POST" class="container">
     <h1>Sell Online</h1>
     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
     <input type="text"  spellcheck="false"name="item" placeholder="enter item name">

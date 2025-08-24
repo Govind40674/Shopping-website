@@ -9,7 +9,7 @@
 <body>
 
   
-  <form action="http://localhost:8000/addshortage" method="POST" class="container">
+  <form action="/addshortage" method="POST" class="container">
     <h1>Shortage</h1>
      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
     <input type="text" name="item" placeholder="enter item name">

@@ -56,20 +56,22 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({
-    mongoUrl: process.env.MONGO_URL, // Same as you use for mongoose.connect
+    mongoUrl: process.env.MONGO_URL, 
     collectionName: "sessions"
   }),
   cookie: {
     maxAge: 1000 * 60 * 60 * 24, // 1 day
        httpOnly: true,
    
-    // secure:process.env.SECRET_KEY==="Govind123",
+
     secure:false,
   }
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
+let Sate;
+let City;
 
 
 
@@ -158,27 +160,80 @@ app.get('/auth/google',
  
 app.get( '/auth/google/callback',
     passport.authenticate( 'google', {
-        successRedirect: '/google/login',
+        successRedirect: '/register',
         failureRedirect: '/login'
 }));
-app.get("/google/login",async(req,res)=>{
-  let user=req.user;
-  if(user){
-    const token=jwt.sign({userid:user._id,username:req.user.displayName}, process.env.SECRET_KEY,{expiresIn:"1d"});
+app.get('/register',csrfProtection,(req,res)=>{
+  const error=req.query.error;
+  res.render("register",{csrfToken:req.csrfToken(),error});
+  
+});
+app.get("/register/check",async(req,res)=>{
+   let{name,password}=req.query;
+   if(!name||!password){
+    return res.redirect("/register?error=username or password is required");
+   };
+  let find= await User.findOne({username:name});
+  try{
+  if(find){
+    let c= await bcrypt.compare(password,find.password);
+    if(c){
+      const token=jwt.sign({userid:find._id,username:find.username}, process.env.SECRET_KEY,{expiresIn:"1d"});
          res.cookie("token", token, {
         httpOnly: true,
        secure:process.env.SECRET_KEY==="Govind123",
         maxAge: 3600000*24,
       });
-    
-req.session.username = user.displayName;
-      return res.redirect("/");
+      req.session.userId = find._id;
+      req.session.username = find.username;
+
+
+      return res.redirect("/location");
+    }else{
+      return res.redirect("/register?error=wrong password");
+    }
+  }else{
+    return res.redirect("/register?error=invalid username");
+  }
+
+  }catch(error){
+    return res.redirect("/register?error=something wrong ");
   }
  
-
+  
 });
 
-// login route
+app.get("/register/signup",csrfProtection,(req,res)=>{
+  const error=req.query.error;
+  res.render("registersignup",{error,csrfToken:req.csrfToken()});
+});
+app.post("/register/signup",async(req,res)=>{
+  let{name,password}=req.body;
+  if(!name||await User.findOne({username:name})){
+
+    return res.redirect("/register/signup?error=username already exist or username is required");
+  }
+  if(!password){
+    return res.redirect("/register/signup?error=password is required");
+  }
+
+  const hashedpassword=await bcrypt.hash(password,10);
+ const user = new User({
+    username: name,
+   
+    password: hashedpassword,
+  });
+
+  await user.save();
+  
+  res.redirect("/login?news=account created successfully and you can login now");
+
+
+  
+});
+  
+
+
 app.get("/login",(req,res)=>{
    
   const news=req.query.news;
@@ -206,9 +261,9 @@ app.post("/login/check",async(req,res)=>{
         maxAge: 3600000*24,
       });
       req.session.userId = find._id;
-req.session.username = find.username;
+      req.session.username = find.username;
 
-      return res.redirect("/");
+      return res.redirect("/location");
     }else{
       return res.redirect("/login?news=wrong password");
     }
@@ -250,8 +305,30 @@ function googleauth(req,res,next){
 };
 // app.use(googleauth);
 app.use(auth);
+app.get("/location",csrfProtection,(req,res)=>{
+  const error=req.query.error;
+  res.render("location",{error,csrfToken:req.csrfToken()});
+});
+app.post("/location",async(req,res)=>{
+  let{state,city}=req.body;
+  if(!state||!city){
+    return res.redirect("/location?error=state or city is required");
+  }
+
+  city=city.trim();
+  Sate=state;
+  City=city;
+  res.redirect("/");
+  
+})
 app.get("/",async(req,res)=>{
-   let data=await Online.find({username:{$ne:req.user.username}});
+  if(!Sate||!City){
+    return res.redirect("/location");
+  }
+   let data=await Online.find({username:{$ne:req.user.username},state:Sate,city:City});
+   if(data.length===0){
+    return res.render("home",{data,error:"No item found in this region yet"});
+   }
    let error=req.query.error;
   res.render("home",{data,error});  
 });
@@ -261,7 +338,7 @@ app.get("/",async(req,res)=>{
 
 
 app.get("/home",async(req,res)=>{
- let data=await Online.find({username:{$ne:req.user.username}});
+ let data=await Online.find({username:{$ne:req.user.username},state:Sate,city:City});
    let error=req.query.error;
   res.render("home",{data,error}); 
 });
@@ -422,6 +499,9 @@ app.post("/sellonline",upload.single("image"),async(req,res)=>{
     username: req.user.username,
     quantity:quantity,
     phone:phone,
+    state:State,
+    city:City,
+
   });
   await data.save();
   res.redirect("/home");
@@ -441,9 +521,9 @@ app.get("/deleteonline/:id",async(req,res)=>{
 });
 app.get("/search",async(req,res)=>{
   let {q}=req.query;
-  let data=await Online.find({username:{$ne:req.user.username},item:q});
+  let data=await Online.find({username:{$ne:req.user.username},item:q,state:Sate,city:City});
   if(data.length==0){
-    data=await Online.find({username:{$ne:req.user.username},description:q});
+    data=await Online.find({username:{$ne:req.user.username},description:q,state:Sate,city:City});
   }
   
   
@@ -451,7 +531,7 @@ app.get("/search",async(req,res)=>{
   if(data.length==0){
     
     
-    return res.render("home", {data:null, error: "Item not found" });
+    return res.render("home", {data:null, error: "Item not found"});
 
   }
   res.render("home",{data,error:null});

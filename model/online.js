@@ -21,6 +21,12 @@ const shema5=new mongoose.Schema({
   },
   quantity:{
     type:Number,
+  },
+  state:{
+    type:String,
+  },
+  city:{
+    type:String,
   }
   
 });

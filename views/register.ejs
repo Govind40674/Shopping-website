@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="stylesheet" href="/register.css">
+</head>
+<body>
+  
+  <form method="GET"action="/register/check">
+    <h2>For Your Shop</h2>
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <input type="text" name="name"placeholder="enter username" spellcheck="false">
+    <input type="password" name="password" placeholder="enter password" spellcheck="false">
+    <button type="submit">Log in</button>
+    <a href="/register/signup">Register</a>
+    <% if (error) { %>
+    <p style="color: red;"><%=error%></p>
+    <% } %>
+   
+  </form>
+  
+</body>
+</html>
