@@ -21,6 +21,15 @@ const nodemailer=require("nodemailer");
 const MongoStore = require("connect-mongo");
 const compression=require("compression");
 const cors=require("cors");
+const { v2: cloudinary } = require("cloudinary");
+const fs = require("fs");
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key:    process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 
 
 
@@ -30,7 +39,17 @@ const cors=require("cors");
 const app=express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-app.use(cors({ origin: "http://192.168.29.203:8000", credentials: true }));
+// app.use(cors({ origin: "http://192.168.29.203:8000", credentials: true }));
+// const cors = require("cors");
+
+app.use(cors({
+  origin: [
+    "http://localhost:3000", // for local dev
+    "https://shopping-website-ksvf.onrender.com" // your live frontend
+  ],
+  credentials: true
+}));
+
 
 
 
@@ -84,22 +103,43 @@ app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.static(path.join(__dirname,"public")));
 app.use("/images", express.static("images"));
-const storage=multer.diskStorage({
-  destination:function(req,file,cb){
-    cb(null, path.join(__dirname, "uploads"));
+// const storage=multer.diskStorage({
+//   destination:function(req,file,cb){
+//     cb(null, path.join(__dirname, "uploads"));
+//   },
+//   filename:function(req,file,cb){
+//     const newfile=Date.now()+path.extname(file.originalname);
+//     cb(null,newfile);
+//   }
+// });
+// const limits={
+//   filesize:1024*1024*5
+// };
+// const upload=multer({
+//   storage:storage,
+//   limits:limits
+// });
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, "temp")); // temporary folder
   },
-  filename:function(req,file,cb){
-    const newfile=Date.now()+path.extname(file.originalname);
-    cb(null,newfile);
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname));
   }
 });
-const limits={
-  filesize:1024*1024*5
-};
-const upload=multer({
-  storage:storage,
-  limits:limits
+
+// NOTE: correct key is fileSize (camelCase)
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB
+  // fileFilter: (req, file, cb) => {
+  //   // allow common image types
+  //   const ok = /image\/(png|jpe?g|webp|gif)/i.test(file.mimetype);
+  //   if (!ok) return cb(new Error("Only image files are allowed"), false);
+  //   cb(null, true);
+  // }
 });
+
 const transporter=nodemailer.createTransport({
   host:"smtp.gmail.com",
   port:587,
@@ -500,46 +540,114 @@ app.get("/sold",csrfProtection,(req,res)=>{
   res.render("sellonline",{csrfToken:req.csrfToken(),error});
 });
 
-app.post("/sellonline",upload.single("image"),async(req,res)=>{
+// app.post("/sellonline",upload.single("image"),async(req,res)=>{
 
-  let {item,price,description,quantity,phone,state,city,address}=req.body;
-   let imagePath = null;
-  if (req.file) {
-    imagePath="/uploads/" + req.file.filename;
-  }
-  if(item&&price&&description&&quantity&&phone&&imagePath&&state&&city&&address){
+//   let {item,price,description,quantity,phone,state,city,address}=req.body;
+//    let imagePath = null;
+//   if (req.file) {
+//     imagePath="/uploads/" + req.file.filename;
+//   }
+//   if(item&&price&&description&&quantity&&phone&&imagePath&&state&&city&&address){
 
   
 
-  const data = new Online({
-    item:item,
-    image:imagePath,
-    price:price,
-    description,
-    username: req.user.username,
-    quantity:quantity,
-    phone:phone,
-    state:state,
-    city:city,
-    address:address,
+//   const data = new Online({
+//     item:item,
+//     image:imagePath,
+//     price:price,
+//     description,
+//     username: req.user.username,
+//     quantity:quantity,
+//     phone:phone,
+//     state:state,
+//     city:city,
+//     address:address,
 
-  });
-  await data.save();
-  res.redirect("/sold?error=item added successfully");
-}else{
-  return res.redirect("/sold?error=something is missing")
-}
+//   });
+//   await data.save();
+//   res.redirect("/sold?error=item added successfully");
+// }else{
+//   return res.redirect("/sold?error=something is missing")
+// }
+// });
+app.post("/sellonline", upload.single("image"), async (req, res) => {
+  try {
+    const { item, price, description, quantity, phone, state, city, address } = req.body;
+
+    // validate required fields
+    if (!item || !price || !description || !quantity || !phone || !state || !city || !address) {
+      return res.redirect("/sold?error=something is missing");
+    }
+
+    let imagePath = null;
+    let cloudPublicId = null;
+
+    if (req.file) {
+      // Upload from temp/ to Cloudinary
+      const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+        folder: "online-items" // optional: a folder name in your Cloudinary Media Library
+      });
+
+      // Remove local temp file
+      fs.unlink(req.file.path, () => {});
+
+      imagePath = uploadResult.secure_url;  // permanent https URL
+      cloudPublicId = uploadResult.public_id; // useful if you want to delete later
+    } else {
+      return res.redirect("/sold?error=image is required");
+    }
+
+    const data = new Online({
+      item,
+      image: imagePath,
+      price,
+      description,
+      username: req.user.username,
+      quantity,
+      phone,
+      state,
+      city,
+      address,
+      // store public_id too (helps delete from Cloudinary later)
+      cloudinary_id: cloudPublicId
+    });
+
+    await data.save();
+    return res.redirect("/sold?error=item added successfully");
+  } catch (err) {
+    console.error(err);
+    return res.redirect("/sold?error=upload failed");
+  }
 });
+
 
 app.get("/previoussellonline",async(req,res)=>{
   let data=await Online.find({username:req.user.username});
   res.render("previoussellonline",{data});
 });
-app.get("/deleteonline/:id",async(req,res)=>{
-  let {id}=req.params;
-  await Online.findByIdAndDelete(id);
-  res.redirect("/previoussellonline");
+// app.get("/deleteonline/:id",async(req,res)=>{
+//   let {id}=req.params;
+//   await Online.findByIdAndDelete(id);
+//   res.redirect("/previoussellonline");
+// });
+app.get("/deleteonline/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const doc = await Online.findById(id);
+
+    if (doc && doc.cloudinary_id) {
+      // delete image from Cloudinary
+      await cloudinary.uploader.destroy(doc.cloudinary_id);
+    }
+
+    await Online.findByIdAndDelete(id);
+    res.redirect("/previoussellonline");
+  } catch (e) {
+    console.error(e);
+    res.redirect("/previoussellonline");
+  }
 });
+
 app.get("/search",async(req,res)=>{
 
   let {q}=req.query;
