@@ -73,7 +73,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-let Sate;
+let State;
 let City;
 
 
