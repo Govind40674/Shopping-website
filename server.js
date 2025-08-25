@@ -319,13 +319,13 @@ app.post("/location",async(req,res)=>{
   }
 
   city=city.trim();
-  Sate=state;
+  State=state;
   City=city;
   res.redirect("/");
   
 })
 app.get("/",async(req,res)=>{
-  if(!Sate||!City){
+  if(!State||!City){
     let data=await Online.find({username:{$ne:req.user.username}});
     let error=req.query.error;
     if(data.length===0){
@@ -335,7 +335,7 @@ app.get("/",async(req,res)=>{
 
     
   }
-   let data=await Online.find({username:{$ne:req.user.username},state:Sate,city:City});
+   let data=await Online.find({username:{$ne:req.user.username},state:State,city:City});
    if(data.length===0){
     return res.render("home",{data:null,error:"No item found in this region yet"});
    }
@@ -348,14 +348,14 @@ app.get("/",async(req,res)=>{
 
 
 app.get("/home",async(req,res)=>{
- if(!Sate||!City){
+ if(!State||!City){
     let data=await Online.find({username:{$ne:req.user.username}});
     let error=req.query.error;
    return res.render("home",{data,error});
 
     
   }
-   let data=await Online.find({username:{$ne:req.user.username},state:Sate,city:City});
+   let data=await Online.find({username:{$ne:req.user.username},state:State,city:City});
    if(data.length===0){
     return res.render("home",{data,error:"No item found in this region yet"});
    }
@@ -553,9 +553,9 @@ app.get("/search",async(req,res)=>{
     }
     return res.render("home",{data,error:null});
   }
-  let data=await Online.find({username:{$ne:req.user.username},item:q,state:Sate,city:City});
+  let data=await Online.find({username:{$ne:req.user.username},item:q,state:State,city:City});
   if(data.length==0){
-    data=await Online.find({username:{$ne:req.user.username},description:q,state:Sate,city:City});
+    data=await Online.find({username:{$ne:req.user.username},description:q,state:State,city:City});
   }
   
   
