@@ -63,11 +63,19 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + path.extname(file.originalname));
   }
 });
+const filefilter=(req,file,cb)=>{
+  if(file.mimetype==="image/jpeg"||file.mimetype==="image/png"||file.mimetype==="image/webp"){
+    cb(null,true);
+  }else{
+    cb(new Error(" only jpeg,png and webp files are allowed"),false);
+  }
+}
 
 
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 5 * 1024 * 1024 }, // max 5MB
+  limits: { fileSize: 3 * 1024 * 1024 }, // max 5MB
+  fileFilter: filefilter
 });
 
 
@@ -655,51 +663,125 @@ app.get("/sold",csrfProtection,(req,res)=>{
 //     return res.redirect("/sold?error=upload failed");
 //   }
 // });
-app.post("/sellonline", upload.single("image"), async (req, res) => {
-  try {
-    const { item, price, description, quantity, phone, state, city, address } = req.body;
+// app.post("/sellonline", async (req, res) => {
+//   upload.single("image")(req, res, async (err) => {
+//     if (err) {
+//        let errorMessage;
+//         if (err.code === 'LIMIT_FILE_SIZE') {
+//         errorMessage = ' File too large! Maximum allowed size is 3 MB.';
+//       } else {
+//         errorMessage = err.message;
+//       }
 
-    if (!item || !price || !description || !quantity || !phone || !state || !city || !address) {
-      return res.redirect("/sold?error=something is missing");
+     
+      
+//       return res.redirect("/sold?error=" + errorMessage);
+//     }
+//   })
+//   try {
+//     const { item, price, description, quantity, phone, state, city, address } = req.body;
+
+//     if (!item || !price || !description || !quantity || !phone || !state || !city || !address) {
+//       return res.redirect("/sold?error=something is missing");
+//     }
+
+//     let imagePath = null;
+//     let cloudPublicId = null;
+
+//     if (req.file) {
+//       const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+//         folder: "online-items"
+//       });
+
+//       fs.unlink(req.file.path, () => {});
+
+//       imagePath = uploadResult.secure_url;
+//       cloudPublicId = uploadResult.public_id;
+//     } else {
+//       return res.redirect("/sold?error=image is required");
+//     }
+
+//     const data = new Online({
+//       item,
+//       image: imagePath,
+//       price,
+//       description,
+//       username: req.user.username,
+//       quantity,
+//       phone,
+//       state,
+//       city,
+//       address,
+//       cloudinary_id: cloudPublicId
+//     });
+
+//     await data.save();
+//     return res.redirect("/sold?error=item added successfully");
+//   } catch (err) {
+//     console.error(err);
+//     return res.redirect("/sold?error=upload failed");
+//   }
+// });
+app.post("/sellonline", async (req, res) => {
+  upload.single("image")(req, res, async (err) => {
+
+    // Handle Multer errors first
+    if (err) {
+      let errorMessage;
+      if (err.code === "LIMIT_FILE_SIZE") {
+        errorMessage = "File too large! Maximum allowed size is 3 MB.";
+      } else {
+        errorMessage = err.message;
+      }
+      return res.redirect("/sold?error=" + encodeURIComponent(errorMessage));
     }
 
-    let imagePath = null;
-    let cloudPublicId = null;
+    try {
+      const { item, price, description, quantity, phone, state, city, address } = req.body;
 
-    if (req.file) {
+      // Check for missing fields
+      if (!item || !price || !description || !quantity || !phone || !state || !city || !address) {
+        return res.redirect("/sold?error=" + encodeURIComponent("Something is missing"));
+      }
+
+      // Check if file exists
+      if (!req.file) {
+        return res.redirect("/sold?error=" + encodeURIComponent("Image is required"));
+      }
+
+      // Upload to Cloudinary
       const uploadResult = await cloudinary.uploader.upload(req.file.path, {
         folder: "online-items"
       });
 
+      // Delete local file
       fs.unlink(req.file.path, () => {});
 
-      imagePath = uploadResult.secure_url;
-      cloudPublicId = uploadResult.public_id;
-    } else {
-      return res.redirect("/sold?error=image is required");
+      const data = new Online({
+        item,
+        image: uploadResult.secure_url,
+        price,
+        description,
+        username: req.user.username,
+        quantity,
+        phone,
+        state,
+        city,
+        address,
+        cloudinary_id:uploadResult.public_id
+      });
+
+      await data.save();
+
+      return res.redirect("/sold?error=" + encodeURIComponent("Item added successfully"));
+
+    } catch (err) {
+      console.error(err);
+      return res.redirect("/sold?error=" + encodeURIComponent("Upload failed"));
     }
-
-    const data = new Online({
-      item,
-      image: imagePath,
-      price,
-      description,
-      username: req.user.username,
-      quantity,
-      phone,
-      state,
-      city,
-      address,
-      cloudinary_id: cloudPublicId
-    });
-
-    await data.save();
-    return res.redirect("/sold?error=item added successfully");
-  } catch (err) {
-    console.error(err);
-    return res.redirect("/sold?error=upload failed");
-  }
+  });
 });
+
 
 
 
