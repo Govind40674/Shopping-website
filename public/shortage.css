@@ -65,3 +65,18 @@ div a{
 
   
 }
+@media only screen and (max-width: 500px) {
+  div{
+    flex-direction:row;
+    margin-left:5vw;
+    width:300px;
+  }
+  div a{
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+  }
+  div a{
+    margin-top:10px;
+  }
+}

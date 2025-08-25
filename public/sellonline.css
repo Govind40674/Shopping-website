@@ -106,3 +106,47 @@ header h1{
   position:relative;
   right:420px;
 }
+@media only screen and (max-width: 500px) {
+  form{
+    margin-left:5vw;
+    width:300px;
+  }
+  
+  input{
+    margin-top:10px;
+    width: 200px;
+    height: 40px;
+    font-size: 20px;
+  }
+  button{
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+  }
+   header h1{
+    margin-top:10px;
+    margin-right:20px;
+    font-size:25px;
+    position:relative;
+    right:60px;
+    top:10px;
+
+  }
+  select{
+    margin-top:10px;
+    width: 200px;
+    height: 40px;
+    font-size: 20px;
+  }
+  textarea{
+    margin-top:10px;
+    width: 200px;
+    height: 40px;
+    font-size: 20px;
+  }
+  header a{
+    width:100px;
+    height: 40px;
+    font-size: 20px;
+  }
+}

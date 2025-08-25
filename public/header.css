@@ -123,3 +123,50 @@ header  input:focus{
   border:1px solid rgb(195, 181, 181);
   box-shadow: 0 0 15px #3498db;
 }
+@media screen and (max-width: 500px) {
+  header input{
+   
+    width:200px;
+    height:20px;
+  }
+  header{
+    bottom:0px;
+    width:100vw;
+    height:150px;
+    position:sticky;
+    top:0px;
+    z-index:2;
+  }
+  header h1{
+    font-size:20px;
+    bottom:50px;
+  }
+  header .profile{
+    left:2px;
+    bottom:70px;
+    left:30px;
+
+  }
+  header .profile ul{
+    font-size:20px;
+    margin-top:10px;
+    margin-right:10px;
+
+  }
+  .icon{
+    height:100px;
+  }
+  .icon img{
+    width:100px;
+    height:100px;
+  }
+  header ul{
+    font-size:20px;
+  }
+  .dropdown{
+    width:100px;
+    margin-top:50px;
+  }
+  
+
+}

@@ -99,3 +99,25 @@ p i{
  
 
 }
+@media screen and (max-width: 500px) {
+  .container{
+    text-align:center;
+    margin-left:5vw;
+    margin-top:100px;
+    width:300px;
+  }
+  .login{
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+  }
+  a{
+    width: 200px;
+    font-size: 15px;
+  }
+  input{
+    width: 200px;
+    height: 40px;
+    font-size: 20px;
+  }
+}

@@ -26,17 +26,30 @@ body{
     display:inline-block;
     width:300px;
   }
-  .container a button{
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+
   .image2{
-    width:350px;
-    height:200px;
+   max-width:100%;  
+  height: auto;
     border-radius:20px;
+  }
+  @media screen and (max-width: 500px) {
+    .container{
+      margin-left:5vw;
+      width:300px;
+    }
+   
+    .container a{
+      width: 200px;
+      font-size: 15px;
+    }
+    .container input{
+      width: 200px;
+      height: 40px;
+      font-size: 20px;
+    }
+    .container a{
+      width: 200px;
+      font-size: 15px;
+
+    }
   }

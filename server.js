@@ -20,6 +20,7 @@ require("./auth2/google.js");
 const nodemailer=require("nodemailer");
 const MongoStore = require("connect-mongo");
 const compression=require("compression");
+const cors=require("cors");
 
 
 
@@ -29,6 +30,8 @@ const compression=require("compression");
 const app=express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use(cors({ origin: "http://192.168.29.203:8000", credentials: true }));
+
 
 
 app.use("/uploads", express.static("uploads"));
@@ -257,7 +260,7 @@ app.post("/login/check",async(req,res)=>{
       const token=jwt.sign({userid:find._id,username:find.username}, process.env.SECRET_KEY,{expiresIn:"1d"});
          res.cookie("token", token, {
         httpOnly: true,
-       secure:process.env.SECRET_KEY==="Govind123",
+      //  secure:process.env.SECRET_KEY==="Govind123",
         maxAge: 3600000*24,
       });
       req.session.userId = find._id;
