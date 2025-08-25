@@ -41,14 +41,28 @@ cloudinary.config({
 
 // const upload = multer({ storage: storage });
 // Multer disk storage for temporary uploads
+const tempDir = path.join(__dirname, "temp");
+if (!fs.existsSync(tempDir)) {
+  fs.mkdirSync(tempDir);
+}
+
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, path.join(__dirname, "temp")); // temp folder
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, Date.now() + path.extname(file.originalname));
+//   }
+// });
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "temp")); // temp folder
+    cb(null, tempDir); // use the folder we ensured exists
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + path.extname(file.originalname));
   }
 });
+
 
 const upload = multer({
   storage: storage,
