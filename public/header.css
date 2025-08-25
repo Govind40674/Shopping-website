@@ -164,9 +164,20 @@ header  input:focus{
     font-size:20px;
   }
   .dropdown{
-    width:100px;
-    margin-top:50px;
+    width:300px;
+    background-color:rgb(231, 224, 224);
+    font-size:20px;
+    height:500px;
+    color:white;
+    
   }
+  .dropdown a{
+    font-size:20px;
+    color:black;
+    background-color:rgb(231, 224, 224);
+    margin-top:20px;
+  }
+  
   
 
 }

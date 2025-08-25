@@ -30,31 +30,13 @@ cloudinary.config({
   api_key:    process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
-// const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
-// const storage = new CloudinaryStorage({
-//   cloudinary: cloudinary,
-//   params: {
-//     folder: "online-items",
-//     allowed_formats: ["jpg", "png", "jpeg", "webp"],
-//   },
-// });
-
-// const upload = multer({ storage: storage });
-// Multer disk storage for temporary uploads
 const tempDir = path.join(__dirname, "temp");
 if (!fs.existsSync(tempDir)) {
   fs.mkdirSync(tempDir);
 }
 
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, path.join(__dirname, "temp")); // temp folder
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, Date.now() + path.extname(file.originalname));
-//   }
-// });
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, tempDir); // use the folder we ensured exists
@@ -74,27 +56,20 @@ const filefilter=(req,file,cb)=>{
 
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 3 * 1024 * 1024 }, // max 5MB
+  limits: { fileSize: 3 * 1024 * 1024 }, 
   fileFilter: filefilter
 });
-
-
-
-
-
-
-
-
 const app=express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-// app.use(cors({ origin: "http://192.168.29.203:8000", credentials: true }));
-// const cors = require("cors");
+
+
 
 app.use(cors({
   origin: [
-    "http://localhost:3000", // for local dev
-    "https://shopping-website-ksvf.onrender.com" // your live frontend
+    "http://localhost:3000", 
+    "https://shopping-website-ksvf.onrender.com",
+     "http://192.168.29.203:8000"
   ],
   credentials: true
 }));
@@ -152,37 +127,7 @@ app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.static(path.join(__dirname,"public")));
 app.use("/images", express.static("images"));
-// const storage=multer.diskStorage({
-//   destination:function(req,file,cb){
-//     cb(null, path.join(__dirname, "uploads"));
-//   },
-//   filename:function(req,file,cb){
-//     const newfile=Date.now()+path.extname(file.originalname);
-//     cb(null,newfile);
-//   }
-// });
-// const limits={
-//   filesize:1024*1024*5
-// };
-// const upload=multer({
-//   storage:storage,
-//   limits:limits
-// });
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, path.join(__dirname, "temp")); 
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, Date.now() + path.extname(file.originalname));
-//   }
-// });
 
-// NOTE: correct key is fileSize (camelCase)
-// const upload = multer({
-//   storage: storage,
-//   limits: { fileSize: 5 * 1024 * 1024 }, 
-
-// });
 
 const transporter=nodemailer.createTransport({
   host:"smtp.gmail.com",
@@ -584,144 +529,6 @@ app.get("/sold",csrfProtection,(req,res)=>{
   res.render("sellonline",{csrfToken:req.csrfToken(),error});
 });
 
-// app.post("/sellonline",upload.single("image"),async(req,res)=>{
-
-//   let {item,price,description,quantity,phone,state,city,address}=req.body;
-//    let imagePath = null;
-//   if (req.file) {
-//     imagePath="/uploads/" + req.file.filename;
-//   }
-//   if(item&&price&&description&&quantity&&phone&&imagePath&&state&&city&&address){
-
-  
-
-//   const data = new Online({
-//     item:item,
-//     image:imagePath,
-//     price:price,
-//     description,
-//     username: req.user.username,
-//     quantity:quantity,
-//     phone:phone,
-//     state:state,
-//     city:city,
-//     address:address,
-
-//   });
-//   await data.save();
-//   res.redirect("/sold?error=item added successfully");
-// }else{
-//   return res.redirect("/sold?error=something is missing")
-// }
-// });
-// app.post("/sellonline", upload.single("image"), async (req, res) => {
-//   try {
-//     const { item, price, description, quantity, phone, state, city, address } = req.body;
-
-
-//     if (!item || !price || !description || !quantity || !phone || !state || !city || !address) {
-//       return res.redirect("/sold?error=something is missing");
-//     }
-
-//     let imagePath = null;
-//     let cloudPublicId = null;
-
-//     if (req.file) {
-     
-//       const uploadResult = await cloudinary.uploader.upload(req.file.path, {
-//         folder: "online-items" 
-//       });
-
-     
-//       fs.unlink(req.file.path, () => {});
-
-//       imagePath = uploadResult.secure_url;  
-//       cloudPublicId = uploadResult.public_id; 
-//     } else {
-//       return res.redirect("/sold?error=image is required");
-//     }
-
-//     const data = new Online({
-//       item,
-//       image: imagePath,
-//       price,
-//       description,
-//       username: req.user.username,
-//       quantity,
-//       phone,
-//       state,
-//       city,
-//       address,
-     
-//       cloudinary_id: cloudPublicId
-//     });
-
-//     await data.save();
-//     return res.redirect("/sold?error=item added successfully");
-//   } catch (err) {
-//     console.error(err);
-//     return res.redirect("/sold?error=upload failed");
-//   }
-// });
-// app.post("/sellonline", async (req, res) => {
-//   upload.single("image")(req, res, async (err) => {
-//     if (err) {
-//        let errorMessage;
-//         if (err.code === 'LIMIT_FILE_SIZE') {
-//         errorMessage = ' File too large! Maximum allowed size is 3 MB.';
-//       } else {
-//         errorMessage = err.message;
-//       }
-
-     
-      
-//       return res.redirect("/sold?error=" + errorMessage);
-//     }
-//   })
-//   try {
-//     const { item, price, description, quantity, phone, state, city, address } = req.body;
-
-//     if (!item || !price || !description || !quantity || !phone || !state || !city || !address) {
-//       return res.redirect("/sold?error=something is missing");
-//     }
-
-//     let imagePath = null;
-//     let cloudPublicId = null;
-
-//     if (req.file) {
-//       const uploadResult = await cloudinary.uploader.upload(req.file.path, {
-//         folder: "online-items"
-//       });
-
-//       fs.unlink(req.file.path, () => {});
-
-//       imagePath = uploadResult.secure_url;
-//       cloudPublicId = uploadResult.public_id;
-//     } else {
-//       return res.redirect("/sold?error=image is required");
-//     }
-
-//     const data = new Online({
-//       item,
-//       image: imagePath,
-//       price,
-//       description,
-//       username: req.user.username,
-//       quantity,
-//       phone,
-//       state,
-//       city,
-//       address,
-//       cloudinary_id: cloudPublicId
-//     });
-
-//     await data.save();
-//     return res.redirect("/sold?error=item added successfully");
-//   } catch (err) {
-//     console.error(err);
-//     return res.redirect("/sold?error=upload failed");
-//   }
-// });
 app.post("/sellonline", async (req, res) => {
   upload.single("image")(req, res, async (err) => {
 
@@ -789,11 +596,7 @@ app.get("/previoussellonline",async(req,res)=>{
   let data=await Online.find({username:req.user.username});
   res.render("previoussellonline",{data});
 });
-// app.get("/deleteonline/:id",async(req,res)=>{
-//   let {id}=req.params;
-//   await Online.findByIdAndDelete(id);
-//   res.redirect("/previoussellonline");
-// });
+
 app.get("/deleteonline/:id", async (req, res) => {
   try {
     const { id } = req.params;
