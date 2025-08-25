@@ -29,6 +29,32 @@ cloudinary.config({
   api_key:    process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
+// const { CloudinaryStorage } = require("multer-storage-cloudinary");
+
+// const storage = new CloudinaryStorage({
+//   cloudinary: cloudinary,
+//   params: {
+//     folder: "online-items",
+//     allowed_formats: ["jpg", "png", "jpeg", "webp"],
+//   },
+// });
+
+// const upload = multer({ storage: storage });
+// Multer disk storage for temporary uploads
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, "temp")); // temp folder
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // max 5MB
+});
+
 
 
 
@@ -119,26 +145,21 @@ app.use("/images", express.static("images"));
 //   storage:storage,
 //   limits:limits
 // });
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "temp")); // temporary folder
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
-  }
-});
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, path.join(__dirname, "temp")); 
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, Date.now() + path.extname(file.originalname));
+//   }
+// });
 
 // NOTE: correct key is fileSize (camelCase)
-const upload = multer({
-  storage: storage,
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB
-  // fileFilter: (req, file, cb) => {
-  //   // allow common image types
-  //   const ok = /image\/(png|jpe?g|webp|gif)/i.test(file.mimetype);
-  //   if (!ok) return cb(new Error("Only image files are allowed"), false);
-  //   cb(null, true);
-  // }
-});
+// const upload = multer({
+//   storage: storage,
+//   limits: { fileSize: 5 * 1024 * 1024 }, 
+
+// });
 
 const transporter=nodemailer.createTransport({
   host:"smtp.gmail.com",
@@ -570,11 +591,59 @@ app.get("/sold",csrfProtection,(req,res)=>{
 //   return res.redirect("/sold?error=something is missing")
 // }
 // });
+// app.post("/sellonline", upload.single("image"), async (req, res) => {
+//   try {
+//     const { item, price, description, quantity, phone, state, city, address } = req.body;
+
+
+//     if (!item || !price || !description || !quantity || !phone || !state || !city || !address) {
+//       return res.redirect("/sold?error=something is missing");
+//     }
+
+//     let imagePath = null;
+//     let cloudPublicId = null;
+
+//     if (req.file) {
+     
+//       const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+//         folder: "online-items" 
+//       });
+
+     
+//       fs.unlink(req.file.path, () => {});
+
+//       imagePath = uploadResult.secure_url;  
+//       cloudPublicId = uploadResult.public_id; 
+//     } else {
+//       return res.redirect("/sold?error=image is required");
+//     }
+
+//     const data = new Online({
+//       item,
+//       image: imagePath,
+//       price,
+//       description,
+//       username: req.user.username,
+//       quantity,
+//       phone,
+//       state,
+//       city,
+//       address,
+     
+//       cloudinary_id: cloudPublicId
+//     });
+
+//     await data.save();
+//     return res.redirect("/sold?error=item added successfully");
+//   } catch (err) {
+//     console.error(err);
+//     return res.redirect("/sold?error=upload failed");
+//   }
+// });
 app.post("/sellonline", upload.single("image"), async (req, res) => {
   try {
     const { item, price, description, quantity, phone, state, city, address } = req.body;
 
-    // validate required fields
     if (!item || !price || !description || !quantity || !phone || !state || !city || !address) {
       return res.redirect("/sold?error=something is missing");
     }
@@ -583,16 +652,14 @@ app.post("/sellonline", upload.single("image"), async (req, res) => {
     let cloudPublicId = null;
 
     if (req.file) {
-      // Upload from temp/ to Cloudinary
       const uploadResult = await cloudinary.uploader.upload(req.file.path, {
-        folder: "online-items" // optional: a folder name in your Cloudinary Media Library
+        folder: "online-items"
       });
 
-      // Remove local temp file
       fs.unlink(req.file.path, () => {});
 
-      imagePath = uploadResult.secure_url;  // permanent https URL
-      cloudPublicId = uploadResult.public_id; // useful if you want to delete later
+      imagePath = uploadResult.secure_url;
+      cloudPublicId = uploadResult.public_id;
     } else {
       return res.redirect("/sold?error=image is required");
     }
@@ -608,7 +675,6 @@ app.post("/sellonline", upload.single("image"), async (req, res) => {
       state,
       city,
       address,
-      // store public_id too (helps delete from Cloudinary later)
       cloudinary_id: cloudPublicId
     });
 
@@ -619,6 +685,7 @@ app.post("/sellonline", upload.single("image"), async (req, res) => {
     return res.redirect("/sold?error=upload failed");
   }
 });
+
 
 
 app.get("/previoussellonline",async(req,res)=>{

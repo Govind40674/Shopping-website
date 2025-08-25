@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "bcryptjs": "^3.0.2",
-    "cloudinary": "^2.7.0",
+    "cloudinary": "^1.37.2",
     "compression": "^1.8.1",
     "connect-mongo": "^5.1.0",
     "cookie-parser": "^1.4.7",
@@ -15,6 +15,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.17.0",
     "multer": "^2.0.2",
+    "multer-storage-cloudinary": "^4.0.0",
     "nodemailer": "^7.0.5",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0"
