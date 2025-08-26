@@ -8,6 +8,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
+  <div id="preloader">
+  <div class="loader">
+    <img src="/images/logo.png" alt="Your Website Logo" />
+    <p>Loading GovindShop...</p>
+  </div>
+</div>
   <%-include('includes/header.ejs');%>
   <main>
    
@@ -41,4 +47,12 @@
   
 </body>
 <%-include('includes/footer.ejs');%>
+<script>
+  // Hide preloader when page fully loads
+  window.addEventListener("load", function() {
+    const preloader = document.getElementById("preloader");
+    preloader.style.display = "none";
+  });
+</script>
+
 </html>
