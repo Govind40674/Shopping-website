@@ -695,11 +695,11 @@ app.get('/logout', (req, res, next) => {
     });
 });
 app.use((err,req,res,next)=>{
-  console.log(err);
-  // req.query.error=err.message;
+  
+  
   error=err.message;
 
-  res.render("error",{error});
+  res.render("error",{error:"something went wrong"});
 })
 
 

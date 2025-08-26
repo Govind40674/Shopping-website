@@ -3,9 +3,10 @@ body{
   font-family: Arial, sans-serif;
   margin:0px;
   padding:0px;
-  text-align:center;
+  /* text-align:center; */
 }
 header{
+
 
   background-color:rgb(255, 244, 240);
   height:100px;

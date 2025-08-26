@@ -9,6 +9,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
+  <body>
+   <div id="preloader">
+  <div class="loader">
+    <img src="/images/logo.png" alt="Your Website Logo" />
+        <img src="/images/loading.svg" alt="Loading Animation" />
+  </div>
+</div>
   
   <div class="container">
     <img  class="image2"src="<%=data.image%>" alt="Item" width="200">
@@ -21,7 +28,7 @@
        <p>Description: <%=data.description%></p> 
        <p>State: <%=data.state%></p>
        <p>City: <%=data.city%></p>
-       <p>Address: <%=data.address%></p>
+       <p class="address">Address: <%=data.address%></p>
 
       
      
@@ -32,4 +39,11 @@
   </div>
   
 </body>
+<script>
+  // Hide preloader when page fully loads
+  window.addEventListener("load", function() {
+    const preloader = document.getElementById("preloader");
+    preloader.style.display = "none";
+  });
+</script>
 </html>
