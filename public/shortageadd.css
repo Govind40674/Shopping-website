@@ -47,7 +47,7 @@ h1{
   
   height:70px;
 }
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 600px) {
   form{
     margin-left:9.5%;
     width:80%;

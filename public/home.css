@@ -58,45 +58,12 @@
     border-radius: 10px;
     
   }
-  main .searchengine{
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-  }
+ 
   
-  main .searchengine input{
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 300px;
-  }
+
+
   
-  main .searchengine button{
-    margin-left: 10px;
-    padding: 10px 20px;
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  main .searchengine button:hover{
-    background-color: #0056b3;
-  }
-  
-  main .searchengine button:active{
-    background-color: #003366;
-  }
-  
-  main .searchengine input:focus{
-    outline: none;
-  }
-  
-  main .searchengine button:disabled{
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
+
   main .error{
     color: red;
     text-align: center;

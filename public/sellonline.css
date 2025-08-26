@@ -106,7 +106,7 @@ header h1{
   position:relative;
   right:420px;
 }
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 600px) {
   form{
     margin-left:8.5vw;
     width:80%;

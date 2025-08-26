@@ -102,7 +102,7 @@ body{
   box-shadow: 0px 0px 3px #3498db;
 
 }
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
 
    #usertable{
      font-size:10px;

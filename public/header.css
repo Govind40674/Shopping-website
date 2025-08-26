@@ -123,23 +123,23 @@ header  input:focus{
   border:1px solid rgb(195, 181, 181);
   box-shadow: 0 0 15px #3498db;
 }
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
   header input{
    
-    width:200px;
-    height:20px;
+    width:50%;
+    height:12.5%;
   }
   header{
-    bottom:0px;
+    bottom:0vh;
     width:100vw;
-    height:150px;
+    height:20vh;
     position:sticky;
-    top:0px;
+    top:0vh;
     z-index:2;
   }
   header h1{
-    font-size:20px;
-    bottom:50px;
+    font-size:75%;
+    bottom:5vh;
   }
   header .profile{
     left:2px;
@@ -148,34 +148,34 @@ header  input:focus{
 
   }
   header .profile ul{
-    font-size:20px;
-    margin-top:10px;
-    margin-right:10px;
+    font-size:70%;
+    margin-top:2vh;
+    margin-right:10%;
 
   }
   .icon{
-    height:100px;
+    height:60%;
   }
   .icon img{
-    width:100px;
-    height:100px;
+    width:30%;
+    height:110%;
   }
   header ul{
-    font-size:20px;
+    font-size:100%;
   }
   .dropdown{
-    width:300px;
+    width:80%;
     background-color:rgb(231, 224, 224);
-    font-size:20px;
-    height:500px;
+    font-size:80%;
+    height:80%;
     color:white;
     
   }
   .dropdown a{
-    font-size:20px;
+    font-size:120%;
     color:black;
     background-color:rgb(231, 224, 224);
-    margin-top:20px;
+    margin-top:10%;
   }
   
   
