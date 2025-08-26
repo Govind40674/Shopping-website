@@ -1,3 +1,10 @@
+body{
+  background-color: #f2f2f2;
+  font-family: Arial, sans-serif;
+  margin:0px;
+  padding:0px;
+  text-align:center;
+}
 header{
 
   background-color:rgb(255, 244, 240);
@@ -62,7 +69,7 @@ header a{
   cursor:pointer;
   margin-top:20px;
 }
-div a{
+ header div a{
   color:rgb(145, 13, 13);
   text-decoration:none;
   cursor:pointer;
