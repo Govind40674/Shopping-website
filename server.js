@@ -504,15 +504,14 @@ app.get("/shortage",async(req,res)=>{
   res.render("shortage",{data});
 });
 app.get("/shortageadd",csrfProtection,(req,res)=>{
-  res.render("shortageadd",{ csrfToken: req.csrfToken() });
+  res.render("shortageadd",{ csrfToken:req.csrfToken() });
 })
 app.post("/addshortage",async(req,res)=>{
   let {item,itemsize}=req.body;
   const data=new Shortage({
     username:req.user.username,
     item:item,
-    quantity:itemsize
-   
+    quantity:itemsize,
   });
   await data.save();
   res.redirect("/shortage");
@@ -699,7 +698,7 @@ app.use((err,req,res,next)=>{
   
   error=err.message;
 
-  res.render("error",{error:"something went wrong"});
+  res.render("error",{error});
 })
 
 

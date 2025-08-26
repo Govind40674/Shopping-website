@@ -108,45 +108,46 @@ header h1{
 }
 @media only screen and (max-width: 500px) {
   form{
-    margin-left:5vw;
-    width:300px;
+    margin-left:8.5vw;
+    width:80%;
   }
   
   input{
-    margin-top:10px;
-    width: 200px;
-    height: 40px;
-    font-size: 20px;
+    margin-top:0.5vh;
+    width:70%;
+    height:4vh;
+    font-size:120%;
   }
   button{
-    width: 100px;
-    height: 40px;
-    font-size: 20px;
+    width:35%;
+    height:4vh;
+    font-size:120%;
+    margin-bottom:2vh;
   }
    header h1{
-    margin-top:10px;
-    margin-right:20px;
-    font-size:25px;
+    margin-top:1vh;
+    margin-right:2%;
+    font-size:80%;
     position:relative;
-    right:60px;
-    top:10px;
+    right:15%;
+    top:1vh;
 
   }
   select{
-    margin-top:10px;
-    width: 200px;
-    height: 40px;
-    font-size: 20px;
+    margin-top:0.5vh;
+    width:75%;
+    height:6vh;
+    font-size:120%;
   }
   textarea{
-    margin-top:10px;
-    width: 200px;
-    height: 40px;
-    font-size: 20px;
+    margin-top:0.5vh;
+    width:70%;
+    height:6vh;
+    font-size:120%;
   }
   header a{
-    width:100px;
-    height: 40px;
-    font-size: 20px;
+    width:35%;
+    height:4vh;
+    font-size:60%;
   }
 }

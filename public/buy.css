@@ -58,22 +58,23 @@ body{
   }
   @media screen and (max-width: 500px) {
     .container{
-      margin-left:1%;
-      width:300px;
+      margin-left:-0.1%;
+      width:95%;
     }
    
     .container a{
-      width: 200px;
-      font-size: 15px;
+      width:70%;
+      font-size: 100%;
     }
     .container input{
-      width: 200px;
-      height: 40px;
-      font-size: 20px;
+      width:70%;
+      height:5vh;
+      font-size:120%;
     }
     .container a{
-      width: 200px;
-      font-size: 15px;
+      width:70%;
+      font-size:100%;
+      margin-bottom:3vh;
 
     }
 

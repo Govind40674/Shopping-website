@@ -41,11 +41,17 @@ button{
     background-color: lightblue;
   }
   .container{
-    width:300px;
-    margin-left:6%;
+    width:90%;
+    margin-left:4%;
  margin-top:10%;
+ height:70vh;
   }
   input{
-    width:200px;
+    width:65%;
+  }
+  button{
+    width:30%;
+    height:5vh;
+    
   }
 }

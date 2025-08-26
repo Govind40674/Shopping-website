@@ -5,8 +5,6 @@ const schema3=new mongoose.Schema({
   },
   item:{
     type:String,
-    unique:true,
-
   },
   quantity:{
     type:Number,

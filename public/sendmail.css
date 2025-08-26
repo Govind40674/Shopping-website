@@ -66,21 +66,21 @@ h1{
 }
 @media only screen and (max-width: 500px) {
   form{
-    margin-top:20px;
+    margin-top:4vh;
 
-    margin-left:5vw;
+    margin-left:9%;
   }
   form{
-    width:300px;
+    width:80%;
   }
   input{
-    width:200px;
+    width:80%;
   }
   button{
-    width:200px;
+    width:70%;
   }
   textarea{
-    width:200px;
+    width:80%;
   }
 
 }

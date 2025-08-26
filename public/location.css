@@ -82,37 +82,37 @@ form a{
 }
 @media screen and (max-width: 500px) {
   form{
-    margin-left:5vw;
-    width:300px;
-    margin-left:7.5%;
-    height:400px;
+   
+    width:80%;
+    margin-left:8.8%;
+    height:50vh;
   }
   
   input{
-    width: 200px;
-    height: 40px;
+    width:70%;
+    height:4vh;
     font-size: 20px;
   }
   select{
-    width: 200px;
-    height: 40px;
+    width:75%;
+    height:6vh;
     font-size: 20px;
   }
   button{
-    width: 100px;
-    height: 40px;
+    width:35%;
+    height:5vh;
     font-size: 20px;
   }
   option{
-    width: 200px;
-    height: 40px;
+    width:70%;
+    height:5vh;
     font-size: 20px;
   }
   form a{
-    width:100px;
-    height: 40px;
-    font-size: 20px;
-    left:100px;
-    bottom:10px;
+    width:30%;
+    height:4vh;
+    font-size:20px;
+    left:34.5%;
+    bottom:1.3vh;
   }
 }

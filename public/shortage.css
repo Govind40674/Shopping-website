@@ -66,17 +66,19 @@ div a{
   
 }
 @media only screen and (max-width: 500px) {
-  div{
+ 
+  .container{
     flex-direction:row;
-    margin-left:5vw;
-    width:300px;
+  
+    width:100%;
+    margin-top:0px;
   }
-  div a{
-    width: 100px;
-    height: 40px;
-    font-size: 20px;
+  .container a{
+    width:35%;
+    height:5vh;
+    font-size:120%;
+      margin-top:3vh;
   }
-  div a{
-    margin-top:10px;
-  }
+  
+
 }
