@@ -9,6 +9,12 @@
   <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
 </head>
 <body>
+   <div id="preloader">
+  <div class="loader">
+    <img src="/images/logo.png" alt="Your Website Logo" />
+        <img src="/images/loading.gif" alt="Loading Animation" />
+  </div>
+</div>
   <form  method="POST"action="/login/check" class="container">
     
     <p><i class="fa-solid fa-user"></i></p>
@@ -30,4 +36,11 @@
   </form>
   
 </body>
+<script>
+  // Hide preloader when page fully loads
+  window.addEventListener("load", function() {
+    const preloader = document.getElementById("preloader");
+    preloader.style.display = "none";
+  });
+</script>
 </html>
