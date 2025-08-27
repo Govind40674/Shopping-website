@@ -29,7 +29,7 @@
           <td><%= item.item %></td>
           <td><%= item.quantity %></td>
          <td>
-          <form action="http://localhost:8000/deleteshortage/<%= item._id %>" method="GET">
+          <form action="/deleteshortage/<%= item._id %>" method="GET">
           <button>Delete</button>
          </form>
          </td>
