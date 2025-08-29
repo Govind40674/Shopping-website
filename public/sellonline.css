@@ -82,7 +82,7 @@ form.container select:focus,
 form.container textarea:focus {
   outline: none;
   border-color: #667eea;
-  background: #ffffff;
+  /* background: #ffffff; */
   box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
 }
 
