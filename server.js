@@ -126,7 +126,8 @@ const csrfProtection = csrf({ cookie: true });
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.static(path.join(__dirname,"public")));
-app.use("/images", express.static("images"));
+// app.use("/images", express.static("images"));
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 
 const transporter=nodemailer.createTransport({
