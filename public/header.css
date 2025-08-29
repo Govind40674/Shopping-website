@@ -125,6 +125,16 @@ header .search{
   border-radius: 15px;
   transition: all 0.3s ease;
   color: #333333;
+ 
+background-image:url("/images/search.svg");
+
+background-size:10%;
+background-repeat: no-repeat;
+background-position: left center;
+padding-left:2%;
+
+
+  cursor:pointer;
 
   
 
@@ -175,6 +185,12 @@ header .search:focus {
     font-size: 0.85rem;
     border-radius: 12px;
     margin-top: 0;
+    margin-left:4%;
+  
+
+
+  cursor:pointer;
+  padding-left:10%;
   }
 
   header .icon h1 {
@@ -206,9 +222,12 @@ header .search:focus {
   }
 
   header .search {
-    background: #4a5568;
+    background-image: url("/images/search.svg");
+  
+background-color: #b8c6df;
     border-color: #4a5568;
-    color: #e2e8f0;
+    
+    color:black;
   }
 
   header .dropdown {
