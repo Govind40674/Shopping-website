@@ -336,6 +336,10 @@ function googleauth(req,res,next){
   };
   
 };
+app.get("/guest",async(req,res)=>{
+  let data=await Online.find();
+  res.render("guest",{data,error:null});
+});
 // app.use(googleauth);
 app.use(auth);
 app.get("/location",csrfProtection,(req,res)=>{

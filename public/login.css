@@ -155,7 +155,7 @@ body {
 }
 
 /* Links */
-.forget, .google, .signup {
+.forget, .google, .signup, .guest {
   display: block;
   text-align: center;
   text-decoration: none;
@@ -195,6 +195,17 @@ body {
 }
 
 .signup:hover {
+  background: #667eea;
+  color: white;
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+}
+.guest{
+  background: #09090c;
+  /* color: #667eea; */
+  color: white;
+  border: 2px solid #09090c;
+}
+.guest:hover {
   background: #667eea;
   color: white;
   box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
@@ -268,7 +279,7 @@ p[style*="color: red"] {
     border-radius: 10px;
   }
   
-  .forget, .google, .signup {
+  .forget, .google, .signup, .guest {
     padding: 0.65rem;
     font-size: 0.9rem;
     border-radius: 8px;
@@ -325,7 +336,7 @@ p[style*="color: red"] {
     margin-bottom: 1rem;
   }
   
-  .forget, .google, .signup {
+  .forget, .google, .signup, .guest {
     margin-bottom: 0.8rem;
   }
 }
