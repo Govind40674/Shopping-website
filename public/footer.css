@@ -1,35 +1,92 @@
-body{
+
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
-footer{
-  background-color: #333;
-  color: #fff;
-  padding: 10px;
-  text-align: center;
-  margin-top:500px;
-}
-footer a{
-  color: #fff;
-  text-decoration: none;
-  
-}
-footer li{
-  list-style: none;
-  margin-top:10px;
-}
-@media screen and (max-width: 600px) {
-  footer{
-    margin-top:1000px;
-    text-align:center;
-  }
-  footer ul{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    margin-right:12%;
-  }
 
+/* Footer Base */
+footer {
+  background: #1a1a1a;
+  color: #e0e0e0;
+  padding: 2rem 1rem;
+  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Copyright */
+footer p {
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+/* Navigation Lists */
+footer ul {
+  list-style: none;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+footer ul li {
+  margin: 0;
+}
+
+footer ul
+ li a {
+  color: #e0e0e0;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+footer ul li a:hover {
+  color: #ffffff;
+}
+
+/* Social Icons */
+footer ul li a .fab {
+  font-size: 1.2rem;
+}
+
+/* Separate Logout List */
+footer > ul:last-of-type {
+  margin-top: 1rem;
+}
+
+/* Responsive: Mobile */
+@media (max-width: 480px) {
+  footer {
+    padding: 1.5rem 0.5rem;
+  }
+  footer ul {
+    gap: 0.75rem;
+  }
+  footer p {
+    font-size: 0.85rem;
+  }
+  footer ul li a {
+    font-size: 0.85rem;
+  }
+  footer ul li a .fab {
+    font-size: 1rem;
+  }
+}
+
+/* Dark Mode Inversion */
+@media (prefers-color-scheme: dark) {
+  footer {
+    background: #111111;
+    color: #cfcfcf;
+  }
+  footer ul li a {
+    color: #cfcfcf;
+  }
+  footer ul li a:hover {
+    color: #ffffff;
+  }
 }
 
 

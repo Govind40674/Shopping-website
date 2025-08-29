@@ -14,8 +14,12 @@
     <input type="text" name="name" class="name" placeholder="enter username" spellcheck="false">
   
     
-    <input type="password" class="password" name="password"id="password" placeholder="enter password" spellcheck="false">
-      <span id="togglePassword" class="eye-icon">👁️</span>
+    
+       
+    <div class="password-container">
+  <input type="password" id="password" name="password" placeholder="enter password">
+  <span id="togglePassword" class="eye-icon">👁️</span>
+</div>
     <button class="sign">Sign Up</button>
     <a href="/auth/google">Sign up with Google</a>
     <% if (error) { %>

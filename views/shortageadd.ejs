@@ -12,8 +12,8 @@
   <form action="/addshortage" method="POST" class="container">
     <h1>Shortage</h1>
      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-    <input type="text" name="item" placeholder="enter item name">
-    <input type="text" name="itemsize" placeholder="enter item size">
+    <input type="text" spellcheck="false"name="item" placeholder="enter item name">
+    <input type="text"  spellcheck="false" name="itemsize" placeholder="enter item size">
     <button>Submit</button>
   </form>
   

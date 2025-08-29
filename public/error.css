@@ -1,25 +1,61 @@
-body{
-  background-color: #f2f2f2;
-  font-family: Arial, sans-serif;
-  margin:0px;
-  padding:0px;
-  text-align:center;
+/* Reset & Base Styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-h1{
-  color: red;
-  margin-top: 100px;
 
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+  color: #fff;
+  padding: 20px;
 }
-p{
-  margin-top: 20px;
-  font-size: 30px;
-  
+
+/* Heading */
+h1 {
+  font-size: 50px;
+  color: #ff4b5c;
+  margin-bottom: 15px;
+  animation: fadeInDown 0.6s ease-in-out;
 }
-@media only screen and (max-width: 600px) {
-  h1{
-    font-size:120%;
+
+/* Error message */
+p {
+  font-size: 20px;
+  max-width: 600px;
+  line-height: 1.5;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 15px 20px;
+  border-radius: 8px;
+  animation: fadeInUp 0.6s ease-in-out;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 36px;
   }
-  p{
-    font-size:100%;
+  
+  p {
+    font-size: 16px;
+    padding: 12px 15px;
   }
 }

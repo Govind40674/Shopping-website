@@ -1,9 +1,6 @@
-
-
-body{
-  background-color:#e3e1df;
+/* 
   
-}
+
 .a{
   display:flex;
   
@@ -13,7 +10,7 @@ body{
   background-color: #e3e1df;
 }
 .a a{
-  /* background-color:antiquewhite; */
+  
   background-color: antiquewhite;
   height:50px;
   border-radius:15px;
@@ -140,4 +137,222 @@ body{
    }
 
 
+}  */
+  /* Reset & Box Sizing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body & Background */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+               Ubuntu, Cantarell, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  color: #333333;
+  padding: 1.5rem;
+}
+
+/* Links Container */
+.a {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+}
+
+.a a {
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.6rem 1.5rem;
+  border-radius: 12px;
+  color: #667eea;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.2);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.a a:hover,
+.a a:focus {
+  background: #667eea;
+  color: white;
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+  outline: none;
+}
+
+/* Filter Section */
+.filter {
+  max-width: 900px;
+  margin: 0 auto 1.5rem auto;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filter select,
+.filter input[type="text"] {
+  padding: 0.6rem 0.85rem;
+  border-radius: 8px;
+  border: 2px solid #e1e5e9;
+  font-size: 1rem;
+  /* background-color: #fafafa; */
+  color: #333;
+  min-width: 140px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.filter select:focus,
+.filter input[type="text"]:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+  /* background-color: #fff; */
+}
+
+/* Table Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Tabulator will style the table but override any margin */
+#usertable {
+  margin-top: 0 !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);  
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Override Tabulator Header for cleaner look */
+.tabulator .tabulator-header {
+  background-color: #f0f4ff;
+  border-bottom: 2px solid #667eea;
+  color: #2c3e90;
+  font-weight: 700;
+}
+
+/* Tabulator footer adjustments */
+.tabulator .tabulator-footer {
+  background-color: #f0f4ff;
+  border-top: 2px solid #667eea;
+  color: #2c3e90;
+  font-weight: 700;
+}
+
+/* Buttons inside Tabulator forms */
+.tabulator form button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 8px;
+}
+
+.tabulator form button:hover {
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+  transform: translateY(-2px);
+}
+
+.tabulator form button:active {
+  transform: translateY(0);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .filter {
+    max-width: 100%;
+  }
+  .filter select,
+  .filter input[type="text"] {
+    min-width: 120px;
+    font-size: 0.95rem;
+  }
+  #usertable {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .a {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .a a {
+    width: 100%;
+    text-align: center;
+  }
+  .filter {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .filter select,
+  .filter input[type="text"] {
+    min-width: 100%;
+  }
+  #usertable {
+    font-size: 0.85rem;
+  }
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #1a202c;
+    color: #cbd5e0;
+  }
+  .a a {
+    background: rgba(55, 65, 81, 0.7);
+    color: #90cdf4;
+  }
+  .a a:hover,
+  .a a:focus {
+    background: #5a67d8;
+    color: white;
+  }
+  .filter select,
+  .filter input[type="text"] {
+    background-color: #4a5568;
+    border-color: #4a5568;
+    color: #e2e8f0;
+  }
+  .filter select:focus,
+  .filter input[type="text"]:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102,126,234,0.5);
+  }
+  #usertable {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+  }
+  .tabulator .tabulator-header,
+  .tabulator .tabulator-footer {
+    background-color: #2d3748;
+    border-color: #667eea;
+    color: #a0aec0;
+  }
+  .tabulator form button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+  }
+  .tabulator form button:hover {
+    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+  }
+}
+
+/* Accessibility Focus */
+select:focus-visible,
+input[type="text"]:focus-visible,
+.tabulator form button:focus-visible,
+.a a:focus-visible {
+  outline: 3px solid #667eea;
+  outline-offset: 2px;
 }

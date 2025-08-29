@@ -1,83 +1,147 @@
+/* signup.css */
 
-  body{
-  background-color: #e3e1df;
-  font-family: Arial, sans-serif;
-  margin:0px;
-  padding:0px;
-  }
-.container{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  margin-top:100px;
-  margin-left:30vw;
-  width:600px;
-  height:500px;
-  border:2px solid white;
-  border-radius:15px;
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-input{
-  margin-top:10px;
-  height:50px;
-  width:300px;
-  border:1px solid rgb(195, 181, 181);
-  border-radius:10px;
-  background-color:white;
-  padding:5px;
-  font-size:18px;
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Dark gradient */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 10px;
+  color: #fff;
 }
-input:focus{
+
+/* Form Container */
+.container {
+  background: rgba(20, 20, 20, 0.95); /* Semi-transparent black */
+  padding: 25px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #00d4ff;
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  background: #1f1f1f;
+  color: #fff;
   outline: none;
-  box-shadow: 0 0 5px #3498db;
+  transition: 0.3s;
 }
-.sign{
-  font-size:25px;
-  margin-bottom:3px;
-  margin-top:10px;
-  border-radius:10px;
-  width:170px;
-  height:50px;
-  border:1px solid rgb(198, 185, 185);
-   color: white;
-  background-color: #007BFF;
+
+input:focus {
+  border: 1px solid #00d4ff;
+  box-shadow: 0 0 8px #00d4ff;
 }
-a{
-  text-decoration:none;
-  margin-top:20px;
-  border:2px solid rgb(198, 185, 185);
-  padding:10px;
-  border-radius:10px;
-  
-    background-color: #007BFF;
+
+/* Password Eye Icon */
+.password-container {
+  position: relative;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 18px;
+  color: #bbb;
+  transition: 0.3s;
+}
+
+.eye-icon:hover {
+  color: #00d4ff;
+}
+
+/* Sign Up Button */
+.sign {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, #00d4ff, #007bff);
+  border: none;
+  border-radius: 8px;
   color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
 }
-a:hover{
-  background-color: #e3e1df;
-  opacity: 0.7;
-}
-.eye-icon{
-     position:relative;;
-    bottom:35px;
-    left:23%;
- 
-    transform: translateY(-50%);
-    cursor: pointer;
 
+.sign:hover {
+  background: linear-gradient(90deg, #007bff, #00d4ff);
+  box-shadow: 0 0 10px #00d4ff;
 }
-@media screen and (max-width: 600px) {
-  .container{
-    margin-left:4vw;
-    margin-top:20%;
-    width:90vw;
-    height: 55vh;
-  }
-  .eye-icon{
-    position:relative;;
- 
-    left:40%;
- 
-    transform: translateY(-50%);
-    cursor: pointer;
-  }
 
+/* Google Link */
+a {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  color: #00d4ff;
+  text-decoration: none;
+  transition: 0.3s;
 }
+
+a:hover {
+  text-decoration: underline;
+  color: #80eaff;
+}
+
+p {
+  text-align: center;
+  margin-top: 10px;
+  color: #ff4b4b;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 22px;
+  }
+  input, .sign {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+
+
+
+
+
+
+

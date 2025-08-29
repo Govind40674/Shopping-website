@@ -1,86 +1,108 @@
-body{
-  background-color: #e3e1df;
+/* Reset & Base Styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-form{
-  display:flex;
-  flex-direction:column;
- 
-  align-items:center;
-  margin-top:100px;
-  
-  margin-left:550px;
-  background-color: #e3e1df;
-  width:600px;
-  height:500px;
-  border:2px solid white;
-  border-radius:15px;
-}
-input{
-  
-  /* margin-top:30px; */
-  height:50px;
-  width:300px;
-  border:1px solid rgb(195, 181, 181);
-  border-radius:10px;
-  background-color:white;
-  /* border-radius:5px; */
-}
-input:focus{
-  outline: none;             /* Removes the default black outline */
-  /* Optional: adds a custom border */
-  border:1px solid rgb(195, 181, 181);
-}
-button{
-  margin-top:30px;
-  height:50px;
-  width:300px;
-  border:1px solid rgb(195, 181, 181);
-  border-radius:10px;
-  background-color:white;
-  /* border-radius:5px; */
-}
-button:focus{
-  outline: none;             /* Removes the default black outline */
-  /* Optional: adds a custom border */
-  border:1px solid rgb(195, 181, 181);
-}
-textarea{
-  /* margin-top:30px; */
-  height:50px;
-  width:300px;
-  border:1px solid rgb(195, 181, 181);
-  border-radius:10px;
-  background-color:white;
-  /* border-radius:5px; */
-}
-textarea:focus{
-  outline: none;             /* Removes the default black outline */
-  /* Optional: adds a custom border */
-  border:1px solid rgb(195, 181, 181);
-}
-label{
-  margin-top:30px;
-}
-h1{
-  margin-top:30px;
-}
-@media only screen and (max-width: 600px) {
-  form{
-    margin-top:4vh;
 
-    margin-left:9%;
-  }
-  form{
-    width:80%;
-  }
-  input{
-    width:80%;
-  }
-  button{
-    width:70%;
-  }
-  textarea{
-    width:80%;
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #fff;
+  padding: 15px;
+}
+
+/* Form Styling */
+form {
+  background: rgba(20, 20, 20, 0.95);
+  padding: 25px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 26px;
+  color: #00d4ff;
+}
+
+/* Labels */
+label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* Inputs & Textarea */
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #2d3748;
+  color: white;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+textarea {
+  resize: none;
+  height: 100px;
+}
+
+/* Button */
+button {
+  width: 100%;
+  padding: 12px;
+  background: #00d4ff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #00aabb;
+}
+
+/* Error Message */
+p {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile View Adjustments */
+@media (max-width: 480px) {
+  form {
+    padding: 20px;
   }
 
+  h1 {
+    font-size: 22px;
+  }
+
+  input, textarea, button {
+    font-size: 14px;
+    padding: 10px;
+  }
 }
