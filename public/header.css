@@ -258,8 +258,11 @@ background-color: #b8c6df;
 
 header .search:focus-visible,
 header .dropdown a:focus-visible {
-  outline: 3px solid #667eea;
-  outline-offset: 2px;
+  /* outline: 3px solid #667eea;
+  outline-offset: 2px; */
+  outline: none;       /* remove extra outline */
+  border-color: inherit;
+  box-shadow: none;
 }
 
 
