@@ -147,7 +147,8 @@ padding-left:2%;
 header .search:focus {
   outline: none;
   /* border-color: #667eea; */
-  box-shadow: 0 0 0 0.1px rgba(102,126,234,0.15);
+  /* box-shadow: 0 0 0 0.1px rgba(102,126,234,0.15); */
+  box-shadow:none;
   /* background-color: #fff; */
 }
 
