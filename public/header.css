@@ -149,6 +149,7 @@ header .search:focus {
   /* border-color: #667eea; */
   /* box-shadow: 0 0 0 0.1px rgba(102,126,234,0.15); */
   box-shadow:none;
+  border-color: inherit;
   /* background-color: #fff; */
 }
 
