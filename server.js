@@ -495,6 +495,9 @@ app.get("/update1/:id",async(req,res)=>{
 
 
 });
+app.get("/update1/:id/:m",(req,res)=>{
+  res.render("error",{error:"page not found"});
+})
 app.get("/update2/:id",async(req,res)=>{
   let {id}=req.params;
   let {value}=req.query;
@@ -506,6 +509,9 @@ app.get("/update2/:id",async(req,res)=>{
   await Data.findByIdAndUpdate(id,{itemsize:value,rem:rem});
   res.redirect("/show");
 });
+app.get("/update2/:id/:m",async(req,res)=>{
+   res.render("error",{error:"page not found"});
+});
 app.get("/update3/:id",async(req,res)=>{
   let {id}=req.params;
   let {value}=req.query;
@@ -514,6 +520,9 @@ app.get("/update3/:id",async(req,res)=>{
   await Data.findByIdAndUpdate(id,{mrp:value,profit:profit});
   res.redirect("/show");
 });
+app.get("/update3/:id/:m",(req,res)=>{
+  res.render("error",{error:"page not found"});
+})
 app.get("/update4/:id",async(req,res)=>{
   let {id}=req.params;
   let {value}=req.query;
@@ -522,6 +531,9 @@ app.get("/update4/:id",async(req,res)=>{
   await Data.findByIdAndUpdate(id,{sp:value,profit:profit});
   res.redirect("/show");
 });
+app.get("/update4/:id/:m",(req,res)=>{
+  res.render("error",{error:"page not found"});
+})
 app.get("/update5/:id",async(req,res)=>{
   let {id}=req.params;
   let {value}=req.query;
@@ -531,9 +543,10 @@ app.get("/update5/:id",async(req,res)=>{
   await Data.findByIdAndUpdate(id,{sdi:value,rem:rem,profit:profit});
   res.redirect("/show");
 });
-app.get("/update6/:id/:m",async(req,res)=>{
-   res.render("error",{error:"page not found"});
-});
+app.get("/update5/:id/:m",(req,res)=>{
+  res.render("error",{error:"page not found"});
+})
+
 
 app.get("/delete/:id",async(req,res)=>{
   let {id}=req.params;
