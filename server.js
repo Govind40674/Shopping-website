@@ -183,12 +183,7 @@ app.post("/signup/check",async(req,res)=>{
 
   
 });
-app.get("/signup/:id",async(req,res)=>{
-   res.render("error",{error:"page not found"});
-});
-app.get("/signup/check/:id",async(req,res)=>{
-   res.render("error",{error:"page not found"});
-});
+
 
 
 //Google login routes
@@ -270,9 +265,7 @@ app.post("/register/signup",async(req,res)=>{
 
   
 });
-app.get("/register/:id",async(req,res)=>{
-   res.render("error",{error:"page not found"});
-});
+
   
 
 
@@ -324,14 +317,8 @@ app.get("/forgetpassword",csrfProtection,(req,res)=>{
   const error=req.query.error;
   res.render("forgetpassword",{error,csrfToken:req.csrfToken()});
 });
-app.get("/login/:id",(req,res)=>{
-  
-   res.render("error",{error:"page not found"});
-});
 
-app.get("/login/check/:id",(req,res)=>{
-   res.render("error",{error:"page not found"});
-});
+
 app.post("/forgetpassword",async(req,res)=>{
   let{name,password}=req.body;
   let user=await User.findOne({username:name});
@@ -345,9 +332,7 @@ app.post("/forgetpassword",async(req,res)=>{
 
 
 });
-app.get("/forgetpassword/:id",(req,res)=>{
-   res.render("error",{error:"page not found"});
-});
+
 function googleauth(req,res,next){
   if(req.user){
     next();
@@ -396,9 +381,7 @@ app.get("/",async(req,res)=>{
    let error=req.query.error;
   res.render("home",{data,error});  
 });
-app.get("/location/:id",(req,res)=>{
-   res.render("error",{error:"page not found"});
-});
+
 
 
 
@@ -418,9 +401,7 @@ app.get("/home",async(req,res)=>{
    let error=req.query.error;
   res.render("home",{data,error}); 
 });
-app.get("/home/:id",(req,res)=>{
-   res.render("error",{error:"page not found"});
-});
+
 
 app.get("/adddata",csrfProtection,(req,res)=>{
   res.render("add",{ csrfToken: req.csrfToken() });
@@ -448,9 +429,7 @@ app.post("/adddata",async(req,res)=>{
   
 
 });
-app.get("/adddata/:id",(req,res)=>{
-   res.render("error",{error:"page not found"});
-});
+
 
 app.get("/show", async (req, res) => {
     if (!req.user.username) {
@@ -465,9 +444,7 @@ app.get("/show", async (req, res) => {
         res.status(500).send("Error fetching data");
     }
 });
-app.get("/show/:id",(req,res)=>{
-   res.render("error",{error:"page not found"});
-});
+
 
 app.get("/showdata", async (req, res) => {
     if (!req.user.username) {
@@ -482,9 +459,7 @@ app.get("/showdata", async (req, res) => {
         res.status(500).json({ error: "Error fetching data" });
     }
 });
-app.get("/showdata/:id",(req,res)=>{
-   res.render("error",{error:"page not found"});
-});
+
 
 app.get("/update1/:id",async(req,res)=>{
   let {id}=req.params;
@@ -495,9 +470,7 @@ app.get("/update1/:id",async(req,res)=>{
 
 
 });
-app.get("/update1/:id/:m",(req,res)=>{
-  res.render("error",{error:"page not found"});
-})
+
 app.get("/update2/:id",async(req,res)=>{
   let {id}=req.params;
   let {value}=req.query;
@@ -509,9 +482,7 @@ app.get("/update2/:id",async(req,res)=>{
   await Data.findByIdAndUpdate(id,{itemsize:value,rem:rem});
   res.redirect("/show");
 });
-app.get("/update2/:id/:m",async(req,res)=>{
-   res.render("error",{error:"page not found"});
-});
+
 app.get("/update3/:id",async(req,res)=>{
   let {id}=req.params;
   let {value}=req.query;
@@ -520,9 +491,7 @@ app.get("/update3/:id",async(req,res)=>{
   await Data.findByIdAndUpdate(id,{mrp:value,profit:profit});
   res.redirect("/show");
 });
-app.get("/update3/:id/:m",(req,res)=>{
-  res.render("error",{error:"page not found"});
-})
+
 app.get("/update4/:id",async(req,res)=>{
   let {id}=req.params;
   let {value}=req.query;
@@ -531,9 +500,7 @@ app.get("/update4/:id",async(req,res)=>{
   await Data.findByIdAndUpdate(id,{sp:value,profit:profit});
   res.redirect("/show");
 });
-app.get("/update4/:id/:m",(req,res)=>{
-  res.render("error",{error:"page not found"});
-})
+
 app.get("/update5/:id",async(req,res)=>{
   let {id}=req.params;
   let {value}=req.query;
@@ -543,9 +510,7 @@ app.get("/update5/:id",async(req,res)=>{
   await Data.findByIdAndUpdate(id,{sdi:value,rem:rem,profit:profit});
   res.redirect("/show");
 });
-app.get("/update5/:id/:m",(req,res)=>{
-  res.render("error",{error:"page not found"});
-})
+
 
 
 app.get("/delete/:id",async(req,res)=>{
@@ -553,23 +518,17 @@ app.get("/delete/:id",async(req,res)=>{
   await Data.findByIdAndDelete(id);
   res.redirect("/show");
 });
-app.get("/delete/:id/:m",async(req,res)=>{
-   res.render("error",{error:"page not found"});
-});
+
 
 app.get("/shortage",async(req,res)=>{
   let data=await Shortage.find({username:req.user.username});
   res.render("shortage",{data});
 });
-app.get("/shortage/:id",(req,res)=>{
-   res.render("error",{error:"page not found"});
-});
+
 app.get("/shortageadd",csrfProtection,(req,res)=>{
   res.render("shortageadd",{ csrfToken:req.csrfToken() });
 });
-app.get("/shortageadd/:id",(req,res)=>{
-   res.render("error",{error:"page not found"});
-});
+
 app.post("/addshortage",async(req,res)=>{
   let {item,itemsize}=req.body;
   const data=new Shortage({
@@ -580,26 +539,20 @@ app.post("/addshortage",async(req,res)=>{
   await data.save();
   res.redirect("/shortage");
 });
-app.get("/addshortage/:id",(req,res)=>{
-   res.render("error",{error:"page not found"});
-});
+
 
 app.get("/deleteshortage/:id",async(req,res)=>{
   let {id}=req.params;
   await Shortage.findByIdAndDelete(id);
   res.redirect("/shortage");
 });
-app.get("/deleteshortage/:id/:m",async(req,res)=>{
-   res.render("error",{error:"page not found"});
-});
+
 
 app.get("/sold",csrfProtection,(req,res)=>{
   const error=req.query.error;
   res.render("sellonline",{csrfToken:req.csrfToken(),error});
 });
-app.get("/sold/:id",(req,res)=>{
-   res.render("error",{error:"page not found"});
-});
+
 app.post("/sellonline", async (req, res) => {
   upload.single("image")(req, res, async (err) => {
 
@@ -659,9 +612,6 @@ app.post("/sellonline", async (req, res) => {
     }
   });
 });
-app.get("/sellonline/:id",(req,res)=>{
-   res.render("error",{error:"page not found"});
-});
 
 
 
@@ -671,10 +621,7 @@ app.get("/previoussellonline",async(req,res)=>{
   let data=await Online.find({username:req.user.username});
   res.render("previoussellonline",{data});
 });
-app.get("/previoussellonline/:id",(req,res)=>{
-   res.render("error",{error:"page not found"});
-  
-});
+
 
 app.get("/deleteonline/:id", async (req, res) => {
   try {
@@ -693,9 +640,7 @@ app.get("/deleteonline/:id", async (req, res) => {
     res.redirect("/previoussellonline");
   }
 });
-app.get("/deleteonline/:id/:m",async(req,res)=>{
-   res.render("error",{error:"page not found"});
-})
+
 
 app.get("/search",async(req,res)=>{
 
@@ -725,26 +670,20 @@ app.get("/search",async(req,res)=>{
   }
   res.render("home",{data,error:null});
 });
-app.get("/search/:id",(req,res)=>{
-   res.render("error",{error:"page not found"});
-})
+
 app.get("/buy/:id",async(req,res)=>{
   let {id}=req.params;
   let data=await Online.findById(id);
   res.render("buy",{data});
 });
-app.get("/buy/:id/:m",async(req,res)=>{
-  res.render("error",{error:"page not found"});
-})
+
 app.get("/mail",csrfProtection,(req,res)=>{
   let error=req.query.error;
 
  
   res.render("sendmail",{csrfToken:req.csrfToken(),error});
 });
-app.get("/mail/:id",(req,res)=>{
-  res.render("error",{error:"page not found"});
-});
+
 app.post("/sendmail",async(req,res)=>{
   // let {id}=req.query;
   let {from,subject,message}=req.body;
@@ -761,9 +700,6 @@ try{
 }catch(error){
   return res.render("sendmail", {error});
 };
-});
-app.get("/sendmail/:m",async(req,res)=>{
-  res.render("error",{error:"page not found"});
 });
 
 
@@ -792,6 +728,18 @@ app.get('/logout', (req, res, next) => {
 
 
 app.get("/:id",(req,res)=>{
+  res.render("error",{error:"page not found"});
+});
+app.get("/:id/:m",(req,res)=>{
+  res.render("error",{error:"page not found"});
+});
+app.get("/:id/:m/:n",(req,res)=>{
+  res.render("error",{error:"page not found"});
+});
+app.get("/:id/:m/:n/:j",(req,res)=>{
+  res.render("error",{error:"page not found"});
+});
+app.get("/:id/:m/:n/:j/:k",(req,res)=>{
   res.render("error",{error:"page not found"});
 });
 
