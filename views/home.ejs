@@ -53,6 +53,83 @@
     const preloader = document.getElementById("preloader");
     preloader.style.display = "none";
   });
+
+
+    const isWebView = /wv/.test(navigator.userAgent) || /Android.*Version/.test(navigator.userAgent);
+
+  if (!isWebView) {
+    const btn = document.createElement("a");
+    btn.href = "/spheremart.apk"; // your APK link
+    btn.textContent = "📲 Download Android App";
+    btn.setAttribute("download", "");
+
+    // 💅 Styling for all screen sizes
+    btn.style.cssText = `
+      display: inline-block;
+      background: linear-gradient(135deg, #007BFF, #00BFFF);
+      color: white;
+      padding: 14px 26px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: all 0.25s ease;
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 90px; /* ⬅ lifted above footer */
+      z-index: 9999;
+      text-align: center;
+      white-space: nowrap;
+    `;
+
+    // 💫 Hover effect
+    btn.addEventListener("mouseover", () => {
+      btn.style.transform = "translateX(-50%) scale(1.05)";
+    });
+    btn.addEventListener("mouseout", () => {
+      btn.style.transform = "translateX(-50%) scale(1)";
+    });
+
+    document.body.appendChild(btn);
+
+    // 📱 Adjust for smaller screens
+    const styleTag = document.createElement("style");
+    styleTag.textContent = `
+      @media (max-width: 600px) {
+        a[download] {
+          font-size: 14px !important;
+          padding: 12px 20px !important;
+          bottom: 80px !important; /* slightly higher for mobile footers */
+        }
+      }
+    `;
+    document.head.appendChild(styleTag);
+
+    // 🧠 Optional: auto-adjust if footer height changes
+    window.addEventListener('scroll', () => {
+      const footer = document.querySelector('footer');
+      if (footer) {
+        const footerTop = footer.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        if (footerTop < windowHeight - 80) {
+          btn.style.opacity = '0';
+          btn.style.pointerEvents = 'none';
+        } else {
+          btn.style.opacity = '1';
+          btn.style.pointerEvents = 'auto';
+        }
+      }
+    });
+  }
+
+
+
+
 </script>
+
+
 
 </html>
